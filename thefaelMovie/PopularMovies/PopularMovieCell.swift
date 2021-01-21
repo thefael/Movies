@@ -3,10 +3,12 @@ import UIKit
 class PopularMovieCell: UICollectionViewCell {
     let service = Service()
     var image = UIImageView()
+    var popularMovie: PopularMovie?
     var imageURL: URL? {
         didSet {
-            if let imageURL = self.imageURL {
-                self.fetchImage(with: imageURL)
+            if let popularMovie = self.popularMovie {
+                guard let posterPathString = popularMovie.posterPath else { return }
+                self.fetchImage(with: posterPathString)
             }
         }
     }
@@ -22,7 +24,8 @@ class PopularMovieCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func fetchImage(with url: URL) {
+    private func fetchImage(with string: String) {
+        let url = Endpoints.imageURL(from: string)
         service.fetchImage(with: url) { result in
             switch result {
             case .failure(_):

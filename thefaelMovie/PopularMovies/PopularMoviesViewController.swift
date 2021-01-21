@@ -24,13 +24,15 @@ class PopularMoviesViewController: UIViewController {
     func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         let screen = UIScreen.main.bounds
-        let width = screen.width/2.5
+        let width = screen.width/2
         let height = width / CGFloat(Constants.posterAspectRatio)
-        layout.sectionInset = UIEdgeInsets(top: 5, left: width/5, bottom: 0, right: width/5)
-
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: width, height: height)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView?.register(PopularMovieCell.self, forCellWithReuseIdentifier: "ReusableCell")
+        collectionView?.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
         collectionView?.backgroundColor = UIColor(red: 0.1, green: 0.15, blue: 0.3, alpha: 1.0)
         collectionView?.dataSource = dataSource
         view.addSubview(collectionView ?? UICollectionView())
