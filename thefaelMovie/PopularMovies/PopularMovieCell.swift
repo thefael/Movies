@@ -25,7 +25,8 @@ class PopularMovieCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func fetchImage(with url: URL) {
+    private func fetchImage(with string: String) {
+        let url = Endpoints.imageURL(from: string)
         service.fetchImage(with: url) { result in
             switch result {
             case .failure(_):
