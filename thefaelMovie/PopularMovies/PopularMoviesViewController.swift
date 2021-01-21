@@ -40,9 +40,7 @@ class PopularMoviesViewController: UIViewController {
 
     func configureCell() {
         dataSource.configureCell = { item, cell in
-            guard let posterPath = item.posterPath else { return }
-            cell.imageURL = Endpoints.imageURL(from: posterPath)
-//            cell.title.text = item.title
+            cell.popularMovie = item
         }
     }
 

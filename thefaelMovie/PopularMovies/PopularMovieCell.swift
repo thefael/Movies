@@ -3,12 +3,13 @@ import UIKit
 class PopularMovieCell: UICollectionViewCell {
     let service = Service()
     var image = UIImageView()
-    var popularMovie: PopularMovie?
-    var imageURL: URL? {
+    var imageCache: [Int: UIImage]?
+    var popularMovie: PopularMovie? {
         didSet {
             if let popularMovie = self.popularMovie {
                 guard let posterPathString = popularMovie.posterPath else { return }
-                self.fetchImage(with: posterPathString)
+                let posterPath = Endpoints.imageURL(from: posterPathString)
+                self.fetchImage(with: posterPath)
             }
         }
     }
@@ -37,6 +38,7 @@ class PopularMovieCell: UICollectionViewCell {
             }
         }
     }
+
     private func configureSubviews() {
         image.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(image)
