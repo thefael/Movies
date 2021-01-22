@@ -19,6 +19,7 @@ class PopularMoviesViewController: UIViewController {
         setupCollectionView()
         configureCell()
         fetchPopularMoviesList()
+        collectionView?.delegate = self
     }
 
     func setupCollectionView() {
@@ -52,6 +53,19 @@ class PopularMoviesViewController: UIViewController {
             case .success(let movieList):
                 self.popularMoviesList = movieList.movies
             }
+        }
+    }
+}
+
+extension PopularMoviesViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selecionou aqui \(indexPath.row)")
+        let movieVC = MovieViewController()
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell else { return }
+        let image = cell.image
+        movieVC.image = image
+        self.present(movieVC, animated: true) {
+            
         }
     }
 }

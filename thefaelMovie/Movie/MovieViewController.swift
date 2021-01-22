@@ -1,22 +1,19 @@
 import UIKit
 
 class MovieViewController: UIViewController {
+    var image = UIImageView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .gray
+        setupImageView()
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setupImageView() {
+        view.addSubview(image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        image.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        image.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
-    */
-
 }

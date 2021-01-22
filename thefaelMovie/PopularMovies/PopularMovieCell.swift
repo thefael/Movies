@@ -8,8 +8,7 @@ class PopularMovieCell: UICollectionViewCell {
         didSet {
             if let popularMovie = self.popularMovie {
                 guard let posterPathString = popularMovie.posterPath else { return }
-                let posterPath = Endpoints.imageURL(from: posterPathString)
-                self.fetchImage(with: posterPath)
+                self.fetchImage(with: posterPathString)
             }
         }
     }
