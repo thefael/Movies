@@ -1,19 +1,27 @@
 import UIKit
 
 class MovieViewController: UIViewController {
-    var image = UIImageView()
+    var movie: PopularMovie?
+    var movieImageView = UIImageView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
-        setupImageView()
     }
 
-    func setupImageView() {
-        view.addSubview(image)
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        image.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        image.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+    func configureVC(with movie: PopularMovie?) {
+        if let movie = movie {
+            self.movie = movie
+        }
+    }
+
+    func setImageView(image: UIImage?) {
+        guard let image = image else { return }
+        movieImageView = UIImageView(image: image)
+        movieImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(movieImageView)
+        movieImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        movieImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        movieImageView.contentMode = .scaleAspectFit
     }
 }

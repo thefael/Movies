@@ -7,7 +7,7 @@ class PopularMoviesViewController: UIViewController {
     var popularMoviesList = [PopularMovie]() {
         didSet {
             DispatchQueue.main.async {
-                self.dataSource.list = self.popularMoviesList
+                self.dataSource.items = self.popularMoviesList
                 self.collectionView?.reloadData()
             }
         }
@@ -62,10 +62,8 @@ extension PopularMoviesViewController: UICollectionViewDelegate{
         print("Selecionou aqui \(indexPath.row)")
         let movieVC = MovieViewController()
         guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell else { return }
-        let image = cell.image
-        movieVC.image = image
-        self.present(movieVC, animated: true) {
-            
-        }
+        movieVC.configureVC(with: cell.popularMovie)
+        movieVC.setImageView(image: cell.imageView.image)
+        navigationController?.pushViewController(movieVC, animated: true)
     }
 }
