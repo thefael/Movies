@@ -33,6 +33,11 @@ class MovieViewController: UIViewController {
     func setTitle() {
         guard let movie = movie else { return }
         movieTitle.text = movie.title
+        movieTitle.textAlignment = .center
+        movieTitle.textColor = .lightGray
+        movieTitle.backgroundColor = Constants.darkestBlue
+        movieTitle.font = UIFont(name: "Avenir-Heavy", size: 20)
+
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(movieTitle)
         movieTitle.topAnchor.constraint(equalTo: movieImageView.bottomAnchor).isActive = true
