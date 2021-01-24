@@ -34,7 +34,7 @@ class PopularMoviesViewController: UIViewController {
 
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
-        collectionView?.backgroundColor = UIColor(red: 0.1, green: 0.15, blue: 0.3, alpha: 1.0)
+        collectionView?.backgroundColor = Constants.darkBlue
         collectionView?.dataSource = dataSource
         view.addSubview(collectionView ?? UICollectionView())
     }
