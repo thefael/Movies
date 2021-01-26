@@ -34,9 +34,9 @@ class MovieViewController: UIViewController {
         guard let movie = movie else { return }
         movieTitle.text = movie.title
         movieTitle.textAlignment = .center
-        movieTitle.textColor = .lightGray
+        movieTitle.textColor = Constants.yellow
         movieTitle.backgroundColor = Constants.darkestBlue
-        movieTitle.font = UIFont(name: "Avenir-Heavy", size: 20)
+        movieTitle.font = UIFont(name: "Avenir-Heavy", size: 18)
 
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(movieTitle)
