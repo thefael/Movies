@@ -1,7 +1,8 @@
 import UIKit
 
 class PopularMoviesViewController: UIViewController {
-    let service = Service()
+    let service: Service
+    let popularMoviesView = PopularMoviesView(frame: UIScreen.main.bounds)
     var collectionView: UICollectionView?
     let dataSource = CollectionViewDataSource<PopularMovie, PopularMovieCell>()
     var popularMoviesList = [PopularMovie]() {
@@ -13,30 +14,33 @@ class PopularMoviesViewController: UIViewController {
         }
     }
 
+    init(service: Service) {
+        self.service = service
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        view = popularMoviesView
+        setupCollectionView(layout: popularMoviesView.createFlowLayout())
+        popularMoviesView.setupView(collectionView: collectionView)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setupCollectionView()
         configureCell()
         fetchPopularMoviesList()
         collectionView?.delegate = self
     }
 
-    func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        let screen = UIScreen.main.bounds
-        let width = screen.width/2
-        let height = width / CGFloat(Constants.posterAspectRatio)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: width, height: height)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-
+    func setupCollectionView(layout: UICollectionViewFlowLayout) {
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
         collectionView?.backgroundColor = Constants.darkBlue
         collectionView?.dataSource = dataSource
-        view.addSubview(collectionView ?? UICollectionView())
     }
 
     func configureCell() {

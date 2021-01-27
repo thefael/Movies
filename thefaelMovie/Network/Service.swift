@@ -1,6 +1,11 @@
 import UIKit
 
-class Service {
+protocol Service {
+    func fetchData<T: Decodable>(with url: URL, completion: @escaping ((Result<T, Error>) -> Void))
+    func fetchImage(with url: URL, completion: @escaping ((Result<UIImage, Error>) -> Void))
+}
+
+class URLSessionService: Service {
     private let decoder = JSONDecoder()
     private let session = URLSession.shared
 
