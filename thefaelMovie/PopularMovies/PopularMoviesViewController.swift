@@ -7,7 +7,7 @@ class PopularMoviesViewController: UIViewController {
     var popularMoviesList = [PopularMovie]() {
         didSet {
             DispatchQueue.main.async {
-                self.dataSource.list = self.popularMoviesList
+                self.dataSource.items = self.popularMoviesList
                 self.collectionView?.reloadData()
             }
         }
@@ -19,6 +19,7 @@ class PopularMoviesViewController: UIViewController {
         setupCollectionView()
         configureCell()
         fetchPopularMoviesList()
+        collectionView?.delegate = self
     }
 
     func setupCollectionView() {
@@ -33,7 +34,7 @@ class PopularMoviesViewController: UIViewController {
 
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
-        collectionView?.backgroundColor = UIColor(red: 0.1, green: 0.15, blue: 0.3, alpha: 1.0)
+        collectionView?.backgroundColor = Constants.darkBlue
         collectionView?.dataSource = dataSource
         view.addSubview(collectionView ?? UICollectionView())
     }
@@ -53,5 +54,16 @@ class PopularMoviesViewController: UIViewController {
                 self.popularMoviesList = movieList.movies
             }
         }
+    }
+}
+
+extension PopularMoviesViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selecionou aqui \(indexPath.row)")
+        let movieVC = MovieViewController()
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell else { return }
+        movieVC.configureVC(with: cell.popularMovie)
+        movieVC.setImageView(image: cell.imageView.image)
+        navigationController?.pushViewController(movieVC, animated: true)
     }
 }

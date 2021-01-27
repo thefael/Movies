@@ -2,14 +2,13 @@ import UIKit
 
 class PopularMovieCell: UICollectionViewCell {
     let service = Service()
-    var image = UIImageView()
+    var imageView = UIImageView()
     var imageCache: [Int: UIImage]?
     var popularMovie: PopularMovie? {
         didSet {
             if let popularMovie = self.popularMovie {
                 guard let posterPathString = popularMovie.posterPath else { return }
-                let posterPath = Endpoints.imageURL(from: posterPathString)
-                self.fetchImage(with: posterPath)
+                self.fetchImage(with: posterPathString)
             }
         }
     }
@@ -30,27 +29,27 @@ class PopularMovieCell: UICollectionViewCell {
         service.fetchImage(with: url) { result in
             switch result {
             case .failure(_):
-                self.image.image = UIImage()
+                self.imageView.image = UIImage()
             case .success(let image):
                 DispatchQueue.main.async {
-                    self.image.image = image
+                    self.imageView.image = image
                 }
             }
         }
     }
 
     private func configureSubviews() {
-        image.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(image)
-        image.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
+        imageView.clipsToBounds = true
     }
 
     private func setImageConstraints() {
-        contentView.addSubview(image)
-        image.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        image.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-        image.heightAnchor.constraint(equalTo: self.contentView.heightAnchor, multiplier: 1).isActive = true
-        image.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
-        image.contentMode = .scaleAspectFill
+        contentView.addSubview(imageView)
+        imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalTo: self.contentView.heightAnchor, multiplier: 1).isActive = true
+        imageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+        imageView.contentMode = .scaleAspectFill
     }
 }
