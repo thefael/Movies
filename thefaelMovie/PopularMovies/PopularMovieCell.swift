@@ -1,7 +1,7 @@
 import UIKit
 
 class PopularMovieCell: UICollectionViewCell {
-    let service = Service()
+    let service = URLSessionService()
     var imageView = UIImageView()
     var imageCache: [Int: UIImage]?
     var popularMovie: PopularMovie? {
