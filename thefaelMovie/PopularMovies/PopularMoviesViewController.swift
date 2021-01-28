@@ -63,8 +63,7 @@ extension PopularMoviesViewController: UICollectionViewDelegate{
         print("Selecionou aqui \(indexPath.row)")
         let movieVC = MovieViewController()
         guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell else { return }
-        movieVC.configureVC(with: cell.popularMovie)
-        movieVC.setImageView(image: cell.imageView.image)
+        movieVC.configureView(with: cell.popularMovie)
         navigationController?.pushViewController(movieVC, animated: true)
     }
 }
