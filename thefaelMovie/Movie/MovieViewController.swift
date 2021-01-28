@@ -8,7 +8,7 @@ class MovieViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Constants.darkBlue
+        view.backgroundColor = Colors.darkBlue
     }
 
     func configureVC(with movie: PopularMovie?) {
@@ -34,8 +34,8 @@ class MovieViewController: UIViewController {
         guard let movie = movie else { return }
         movieTitle.text = movie.title
         movieTitle.textAlignment = .center
-        movieTitle.textColor = Constants.yellow
-        movieTitle.backgroundColor = Constants.darkestBlue
+        movieTitle.textColor = Colors.yellow
+        movieTitle.backgroundColor = Colors.darkestBlue
         movieTitle.font = UIFont(name: "Avenir-Heavy", size: 18)
 
         movieTitle.translatesAutoresizingMaskIntoConstraints = false

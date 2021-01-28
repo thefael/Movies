@@ -3,7 +3,7 @@ import UIKit
 class PopularMovieCell: UICollectionViewCell {
     let service = URLSessionService()
     var imageView = UIImageView()
-    var imageCache: [Int: UIImage]?
+    var imageCache = ImageCache.shared
     var popularMovie: PopularMovie? {
         didSet {
             if let popularMovie = self.popularMovie {
@@ -25,14 +25,19 @@ class PopularMovieCell: UICollectionViewCell {
     }
 
     private func fetchImage(with string: String) {
-        let url = Endpoints.imageURL(from: string)
-        service.fetchImage(with: url) { result in
-            switch result {
-            case .failure(_):
-                self.imageView.image = UIImage()
-            case .success(let image):
-                DispatchQueue.main.async {
-                    self.imageView.image = image
+        if let image = imageCache.cache[string] {
+            imageView.image = image
+        } else {
+            let url = Endpoints.imageURL(from: string)
+            service.fetchImage(with: url) { result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let image):
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                        self.imageCache.cache[string] = image
+                    }
                 }
             }
         }
