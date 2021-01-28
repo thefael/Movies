@@ -1,21 +1,21 @@
 import UIKit
 
 class PopularMoviesViewController: UIViewController {
-    let service: Service
+    let interactor: Interactor
     let popularMoviesView = PopularMoviesView(frame: UIScreen.main.bounds)
-    var collectionView: UICollectionView?
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     let dataSource = CollectionViewDataSource<PopularMovie, PopularMovieCell>()
     var popularMoviesList = [PopularMovie]() {
         didSet {
             DispatchQueue.main.async {
                 self.dataSource.items = self.popularMoviesList
-                self.collectionView?.reloadData()
+                self.collectionView.reloadData()
             }
         }
     }
 
-    init(service: Service) {
-        self.service = service
+    init(interactor: Interactor) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -32,15 +32,15 @@ class PopularMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCell()
-        fetchPopularMoviesList()
-        collectionView?.delegate = self
+        fetchPopularMovieList()
+        collectionView.delegate = self
     }
 
     func setupCollectionView(layout: UICollectionViewFlowLayout) {
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView?.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
-        collectionView?.backgroundColor = Constants.darkBlue
-        collectionView?.dataSource = dataSource
+        collectionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
+        collectionView.backgroundColor = Constants.darkBlue
+        collectionView.dataSource = dataSource
     }
 
     func configureCell() {
@@ -49,15 +49,12 @@ class PopularMoviesViewController: UIViewController {
         }
     }
 
-    func fetchPopularMoviesList() {
-        service.fetchData(with: Endpoints.popularMoviesListURL()) { (result: Result<PopularMovies, Error>) in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let movieList):
-                self.popularMoviesList = movieList.movies
-            }
-        }
+    func fetchPopularMovieList() {
+        interactor.loadMovieList(onSuccess: { popularMoviesList in
+            self.popularMoviesList = popularMoviesList
+        }, onError: { error in
+            print(error)
+        })
     }
 }
 

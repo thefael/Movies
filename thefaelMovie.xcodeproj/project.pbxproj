@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A823C71225AF9F4E0080D271 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823C71125AF9F4E0080D271 /* CollectionViewDataSource.swift */; };
 		A823C71425AFA7F40080D271 /* PopularMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823C71325AFA7F40080D271 /* PopularMovieCell.swift */; };
+		A82C507225C218740016AC46 /* PopularMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C507125C218740016AC46 /* PopularMoviesInteractor.swift */; };
 		A855D5F725BA318A000F7A95 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A855D5F625BA318A000F7A95 /* MovieViewController.swift */; };
 		A856A39F25AE144900EA18FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A856A39E25AE144900EA18FE /* AppDelegate.swift */; };
 		A856A3A125AE144900EA18FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A856A3A025AE144900EA18FE /* SceneDelegate.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		A823C71125AF9F4E0080D271 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		A823C71325AFA7F40080D271 /* PopularMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieCell.swift; sourceTree = "<group>"; };
+		A82C507125C218740016AC46 /* PopularMoviesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesInteractor.swift; sourceTree = "<group>"; };
 		A855D5F625BA318A000F7A95 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
 		A856A39B25AE144900EA18FE /* thefaelMovie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thefaelMovie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A856A39E25AE144900EA18FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				A8CEB84725C1DD3400197105 /* PopularMoviesView.swift */,
 				A856A3C025AE3F9500EA18FE /* PopularMovies.swift */,
 				A823C71325AFA7F40080D271 /* PopularMovieCell.swift */,
+				A82C507125C218740016AC46 /* PopularMoviesInteractor.swift */,
 			);
 			path = PopularMovies;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A855D5F725BA318A000F7A95 /* MovieViewController.swift in Sources */,
+				A82C507225C218740016AC46 /* PopularMoviesInteractor.swift in Sources */,
 				A856A3B925AE272900EA18FE /* Service.swift in Sources */,
 				A860355C25B0AABE00AF6FE1 /* MovieImages.swift in Sources */,
 				A856A3BF25AE392900EA18FE /* PopularMoviesViewController.swift in Sources */,
