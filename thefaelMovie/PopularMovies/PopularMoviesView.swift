@@ -22,8 +22,8 @@ class PopularMoviesView: UIView {
         return layout
     }
 
-    func setupView(collectionView: UICollectionView?) {
+    func setupView(collectionView: UICollectionView) {
         backgroundColor = .white
-        addSubview(collectionView ?? UICollectionView())
+        addSubview(collectionView)
     }
 }

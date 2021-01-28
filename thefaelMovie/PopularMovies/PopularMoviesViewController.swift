@@ -39,7 +39,7 @@ class PopularMoviesViewController: UIViewController {
     func setupCollectionView(layout: UICollectionViewFlowLayout) {
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
-        collectionView.backgroundColor = Constants.darkBlue
+        collectionView.backgroundColor = Colors.darkBlue
         collectionView.dataSource = dataSource
     }
 
