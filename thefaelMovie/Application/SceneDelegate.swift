@@ -8,8 +8,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         let window = UIWindow(windowScene: windowScene)
         let service = URLSessionService()
+        let interactor = PopularMoviesInteractor(service: service)
 
-        let viewController = PopularMoviesViewController(service: service)
+        let viewController = PopularMoviesViewController(interactor: interactor)
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
 
