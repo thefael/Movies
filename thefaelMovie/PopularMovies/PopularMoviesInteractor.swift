@@ -14,10 +14,10 @@ class PopularMoviesInteractor: Interactor {
     func loadMovieList(onSuccess: @escaping (([PopularMovie]) -> Void), onError: @escaping ((Error) -> Void)) {
         service.fetchData(with: Endpoints.popularMoviesListURL()) { (result: Result<PopularMovies, Error>) in
             switch result {
-            case .failure(let error):
-                onError(error)
             case .success(let movieList):
                 onSuccess(movieList.movies)
+            case .failure(let error):
+                onError(error)
             }
         }
     }

@@ -12,8 +12,7 @@ class PopularMoviesView: UIView {
 
     func createFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        let screen = UIScreen.main.bounds
-        let width = screen.width/2
+        let width = UIScreen.main.bounds.width/2
         let height = width / CGFloat(Constants.posterAspectRatio)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: width, height: height)
