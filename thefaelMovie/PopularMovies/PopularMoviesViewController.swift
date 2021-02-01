@@ -3,13 +3,12 @@ import UIKit
 class PopularMoviesViewController: UIViewController {
     let interactor: Interactor
     let popularMoviesView = PopularMoviesView(frame: UIScreen.main.bounds)
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     let dataSource = CollectionViewDataSource<PopularMovie, PopularMovieCell>()
     var popularMoviesList = [PopularMovie]() {
         didSet {
             DispatchQueue.main.async {
                 self.dataSource.items = self.popularMoviesList
-                self.collectionView.reloadData()
+                self.popularMoviesView.collectionView.reloadData()
             }
         }
     }
@@ -25,22 +24,25 @@ class PopularMoviesViewController: UIViewController {
 
     override func loadView() {
         view = popularMoviesView
-        setupCollectionView(layout: popularMoviesView.createFlowLayout())
-        popularMoviesView.setupView(collectionView: collectionView)
+        setupCollectionView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCollectionView()
         configureCell()
         fetchPopularMovieList()
-        collectionView.delegate = self
     }
 
-    func setupCollectionView(layout: UICollectionViewFlowLayout) {
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
-        collectionView.backgroundColor = Colors.darkBlue
-        collectionView.dataSource = dataSource
+    func setupCollectionView() {
+        popularMoviesView.createFlowLayout()
+        popularMoviesView.setupView()
+    }
+
+    func configureCollectionView() {
+        popularMoviesView.collectionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
+        popularMoviesView.collectionView.dataSource = dataSource
+        popularMoviesView.collectionView.delegate = self
     }
 
     func configureCell() {
@@ -58,7 +60,7 @@ class PopularMoviesViewController: UIViewController {
     }
 }
 
-extension PopularMoviesViewController: UICollectionViewDelegate{
+extension PopularMoviesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selecionou aqui \(indexPath.row)")
         let movieVC = MovieViewController()
