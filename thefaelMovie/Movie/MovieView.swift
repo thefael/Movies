@@ -40,6 +40,8 @@ class MovieView: UIView {
         addSubview(movieTitle)
         movieTitle.topAnchor.constraint(equalTo: movieImageView.bottomAnchor).isActive = true
         movieTitle.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        movieTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        movieTitle.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        movieTitle.lineBreakMode = .byWordWrapping
+        movieTitle.numberOfLines = 2
     }
 }
