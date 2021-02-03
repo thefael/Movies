@@ -1,4 +1,6 @@
 import UIKit
+import Cosmos
+import TinyConstraints
 
 class MovieView: UIView {
     private let movieImageView = UIImageView()
@@ -23,7 +25,7 @@ class MovieView: UIView {
         movieImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(movieImageView)
         movieImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        movieImageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        movieImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor).isActive = true
         movieImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/CGFloat(Constants.posterAspectRatio)).isActive = true
         movieImageView.contentMode = .scaleAspectFit
     }
@@ -39,9 +41,20 @@ class MovieView: UIView {
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         addSubview(movieTitle)
         movieTitle.topAnchor.constraint(equalTo: movieImageView.bottomAnchor).isActive = true
-        movieTitle.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        movieTitle.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor).isActive = true
         movieTitle.heightAnchor.constraint(equalToConstant: 70).isActive = true
         movieTitle.lineBreakMode = .byWordWrapping
         movieTitle.numberOfLines = 2
+    }
+
+    func setupRatingView() {
+        let cosmosView: CosmosView = {
+            let view = CosmosView()
+            return view
+        }()
+        cosmosView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(cosmosView)
+        cosmosView.topAnchor.constraint(equalTo: movieTitle.bottomAnchor).isActive = true
+        cosmosView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor).isActive = true
     }
 }

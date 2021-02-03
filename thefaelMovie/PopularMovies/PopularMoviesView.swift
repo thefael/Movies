@@ -1,6 +1,4 @@
 import UIKit
-import Cosmos
-import TinyConstraints
 
 class PopularMoviesView: UIView {
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())

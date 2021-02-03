@@ -7,6 +7,7 @@ class MovieViewController: UIViewController {
         view = movieView
         movieView.setupImageView()
         movieView.setupTitle()
+        movieView.setupRatingView()
     }
 
     override func viewDidLoad() {
