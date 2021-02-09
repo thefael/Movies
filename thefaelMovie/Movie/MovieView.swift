@@ -7,6 +7,7 @@ class MovieView: UIView {
     private let movieTitle = UILabel()
     private let cosmosView = CosmosView()
     private let numOfRatings = UILabel()
+    private let favButton = UIButton()
 
     var scrollView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
@@ -39,6 +40,7 @@ class MovieView: UIView {
         setupTitle()
         setupRatingView()
         setupNumOfRatings()
+        setupFavButton()
     }
 
     func setupScrollView() {
@@ -112,5 +114,15 @@ class MovieView: UIView {
         containerView.addSubview(numOfRatings)
         numOfRatings.topAnchor.constraint(equalTo: cosmosView.bottomAnchor, constant: 3).isActive = true
         numOfRatings.centerXAnchor.constraint(equalTo: cosmosView.centerXAnchor).isActive = true
+    }
+
+    func setupFavButton() {
+        let image = UIImage(systemName: "heart")
+        favButton.setImage(image, for: .normal)
+        favButton.tintColor = Color.gray
+        favButton.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(favButton)
+        favButton.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 10).isActive = true
+        favButton.leftAnchor.constraint(equalTo: cosmosView.rightAnchor, constant: 15).isActive = true
     }
 }
