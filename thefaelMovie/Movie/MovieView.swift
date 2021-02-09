@@ -32,6 +32,13 @@ class MovieView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setupView() {
+        setupScrollView()
+        setupImageView()
+        setupTitle()
+        setupRatingView()
+    }
+
     func setupScrollView() {
         addSubview(scrollView)
         scrollView.addSubview(containerView)
@@ -75,12 +82,17 @@ class MovieView: UIView {
         cosmosView.settings.fillMode = .precise
         guard let rating = movie?.voteAverage else { return }
         cosmosView.rating = rating/2
-        cosmosView.text = String(rating/2)
+        cosmosView.text = String(rating/2).replacingOccurrences(of: ".", with: ",")
+
+        cosmosView.settings.textFont = UIFont(name: "Avenir-Heavy", size: 22) ?? UIFont()
+        cosmosView.settings.textColor = Color.yellow
+        cosmosView.settings.textMargin = 10
+        cosmosView.settings.filledColor = Color.yellow
         cosmosView.settings.updateOnTouch = false
 
         cosmosView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(cosmosView)
-        cosmosView.topAnchor.constraint(equalTo: movieTitle.bottomAnchor).isActive = true
-        cosmosView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        cosmosView.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 10).isActive = true
+        cosmosView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 15).isActive = true
     }
 }

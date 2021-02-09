@@ -5,10 +5,7 @@ class MovieViewController: UIViewController {
 
     override func loadView() {
         view = movieView
-        movieView.setupScrollView()
-        movieView.setupImageView()
-        movieView.setupTitle()
-        movieView.setupRatingView()
+        movieView.setupView()
     }
 
     override func viewDidLoad() {
