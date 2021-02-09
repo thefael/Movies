@@ -13,7 +13,7 @@ class PopularMoviesView: UIView {
     }
 
     func createFlowLayout() {
-        let width = UIScreen.main.bounds.width/2
+        let width = Constants.screen.width/2
         let height = width / CGFloat(Constants.posterAspectRatio)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: width, height: height)
@@ -23,8 +23,8 @@ class PopularMoviesView: UIView {
 
     func setupView() {
         backgroundColor = .white
-        collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = Colors.darkBlue
+        collectionView = UICollectionView(frame: Constants.screen, collectionViewLayout: layout)
+        collectionView.backgroundColor = Color.darkBlue
         addSubview(collectionView)
     }
 }

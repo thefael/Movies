@@ -1,12 +1,11 @@
 import UIKit
 
 class MovieViewController: UIViewController {
-    let movieView = MovieView(frame: UIScreen.main.bounds)
+    let movieView = MovieView(frame: Constants.screen)
 
     override func loadView() {
         view = movieView
-        movieView.setupImageView()
-        movieView.setupTitle()
+        movieView.setupView()
     }
 
     override func viewDidLoad() {

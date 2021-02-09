@@ -2,7 +2,7 @@ import UIKit
 
 class PopularMoviesViewController: UIViewController {
     let interactor: Interactor
-    let popularMoviesView = PopularMoviesView(frame: UIScreen.main.bounds)
+    let popularMoviesView = PopularMoviesView(frame: Constants.screen)
     let dataSource = CollectionViewDataSource<PopularMovie, PopularMovieCell>()
     var popularMoviesList = [PopularMovie]() {
         didSet {
@@ -62,7 +62,6 @@ class PopularMoviesViewController: UIViewController {
 
 extension PopularMoviesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selecionou aqui \(indexPath.row)")
         let movieVC = MovieViewController()
         guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell else { return }
         movieVC.configureView(with: cell.popularMovie)

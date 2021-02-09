@@ -5,4 +5,5 @@ enum Constants {
     static let ptBR = "pt-BR"
     static let posterAspectRatio = 0.666666666666667
     static let reuseIdentifier = "ReusableCell"
+    static let screen = UIScreen.main.bounds
 }
