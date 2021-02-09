@@ -1,0 +1,6 @@
+framework module Pods_thefaelMovie {
+  umbrella header "Pods-thefaelMovie-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -6,6 +6,8 @@ class MovieView: UIView {
     private let movieImageView = UIImageView()
     private let movieTitle = UILabel()
     private let cosmosView = CosmosView()
+    private let numOfRatings = UILabel()
+    private let favButton = UIButton()
 
     var scrollView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
@@ -37,6 +39,8 @@ class MovieView: UIView {
         setupImageView()
         setupTitle()
         setupRatingView()
+        setupNumOfRatings()
+        setupFavButton()
     }
 
     func setupScrollView() {
@@ -85,8 +89,8 @@ class MovieView: UIView {
         cosmosView.text = String(rating/2).replacingOccurrences(of: ".", with: ",")
 
         cosmosView.settings.textFont = UIFont(name: "Avenir-Heavy", size: 22) ?? UIFont()
-        cosmosView.settings.textColor = Color.yellow
         cosmosView.settings.textMargin = 10
+        cosmosView.settings.textColor = Color.yellow
         cosmosView.settings.filledColor = Color.yellow
         cosmosView.settings.updateOnTouch = false
 
@@ -94,5 +98,31 @@ class MovieView: UIView {
         containerView.addSubview(cosmosView)
         cosmosView.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 10).isActive = true
         cosmosView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 15).isActive = true
+    }
+
+    func setupNumOfRatings() {
+        guard let ratings = movie?.voteCount else { return }
+        if ratings >= 1000 {
+            numOfRatings.text = "\(String(format: "%.1f", Float(ratings)/1000))k Ratings"
+        } else {
+            numOfRatings.text = "\(String(ratings)) Ratings"
+        }
+        numOfRatings.textColor = Color.gray
+        numOfRatings.font = UIFont(name: "Avenir-Heavy", size: 11)
+
+        numOfRatings.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(numOfRatings)
+        numOfRatings.topAnchor.constraint(equalTo: cosmosView.bottomAnchor, constant: 3).isActive = true
+        numOfRatings.centerXAnchor.constraint(equalTo: cosmosView.centerXAnchor).isActive = true
+    }
+
+    func setupFavButton() {
+        let image = UIImage(systemName: "heart")
+        favButton.setImage(image, for: .normal)
+        favButton.tintColor = Color.gray
+        favButton.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(favButton)
+        favButton.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 10).isActive = true
+        favButton.leftAnchor.constraint(equalTo: cosmosView.rightAnchor, constant: 15).isActive = true
     }
 }
