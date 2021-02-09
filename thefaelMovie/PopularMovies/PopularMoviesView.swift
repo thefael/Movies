@@ -2,7 +2,7 @@ import UIKit
 
 class PopularMoviesView: UIView {
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
-    let layout = UICollectionViewFlowLayout()
+    private let layout = UICollectionViewFlowLayout()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

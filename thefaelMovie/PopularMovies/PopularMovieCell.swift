@@ -16,8 +16,7 @@ class PopularMovieCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .gray
-        configureSubviews()
-        setImageConstraints()
+        setupImageView()
     }
 
     required init?(coder: NSCoder) {
@@ -43,13 +42,8 @@ class PopularMovieCell: UICollectionViewCell {
         }
     }
 
-    private func configureSubviews() {
+    private func setupImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(imageView)
-        imageView.clipsToBounds = true
-    }
-
-    private func setImageConstraints() {
         contentView.addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
