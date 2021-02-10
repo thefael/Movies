@@ -117,12 +117,50 @@ class MovieView: UIView {
     }
 
     func setupFavButton() {
-        let image = UIImage(systemName: "heart")
-        favButton.setImage(image, for: .normal)
+        guard let movie = movie else { return }
+        let favCache = FavMovieCache.shared
+        let heart = UIImage(systemName: "heart")
+        let heartFill = UIImage(systemName: "heart.fill")
+        if isFavorite(movie) {
+            print(favCache.cache)
+            favButton.setImage(heartFill, for: .normal)
+        } else {
+            print(favCache.cache)
+            favButton.setImage(heart, for: .normal)
+        }
+        favButton.addTarget(self, action: #selector (favTapped), for: .touchUpInside)
         favButton.tintColor = Color.gray
         favButton.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(favButton)
         favButton.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 10).isActive = true
         favButton.leftAnchor.constraint(equalTo: cosmosView.rightAnchor, constant: 15).isActive = true
+    }
+
+    @objc func favTapped() {
+        print("entra aqui")
+        guard let movie = movie else { return }
+        let favCache = FavMovieCache.shared
+
+        let heart = UIImage(systemName: "heart")
+        let heartFill = UIImage(systemName: "heart.fill")
+        if isFavorite(movie) {
+            guard let index = favCache.cache.firstIndex(where: { $0.title == movie.title }) else { return }
+            favCache.cache.remove(at: index)
+            print(favCache.cache)
+            favButton.setImage(heart, for: .normal)
+        } else {
+            favCache.cache.append(movie)
+            print(favCache.cache)
+            favButton.setImage(heartFill, for: .normal)
+        }
+    }
+
+    func isFavorite(_ movie: PopularMovie) -> Bool {
+        let favCache = FavMovieCache.shared
+        if favCache.cache.contains(where: { $0.title == movie.title }) {
+            return true
+        } else {
+            return false
+        }
     }
 }
