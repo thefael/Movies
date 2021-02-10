@@ -2,7 +2,7 @@ import UIKit
 
 class FavoriteMoviesViewController: UIViewController {
     let favoriteMoviesView = FavoriteMoviesView(frame: Constants.screen)
-    let dataSource = CollectionViewDataSource<PopularMovie, UICollectionViewCell>()
+    let dataSource = CollectionViewDataSource<PopularMovie, FavoriteMovieCell>()
     var favoriteMoviesList = [PopularMovie]() {
         didSet {
             DispatchQueue.main.async {
@@ -13,14 +13,29 @@ class FavoriteMoviesViewController: UIViewController {
 
     override func loadView() {
         view = favoriteMoviesView
-        favoriteMoviesView.createFlowLayout()
-        favoriteMoviesView.setupView()
+        setupCollectionView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCell()
+        configureCollectionView()
+    }
+
+    func setupCollectionView() {
+        favoriteMoviesView.createFlowLayout()
+        favoriteMoviesView.setupView()
+    }
+
+    func configureCollectionView() {
         favoriteMoviesView.collectionView.register(FavoriteMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
         favoriteMoviesView.collectionView.dataSource = dataSource
         favoriteMoviesView.collectionView.reloadData()
+    }
+
+    func configureCell() {
+        dataSource.configureCell = { item, cell in
+            cell.favoriteMovie = item
+        }
     }
 }

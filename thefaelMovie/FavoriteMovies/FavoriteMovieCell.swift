@@ -1,6 +1,7 @@
 import UIKit
 
 class FavoriteMovieCell: UICollectionViewCell {
+    var favoriteMovie: PopularMovie?
     let movieImage = UIImageView()
 
     override init(frame: CGRect) {
