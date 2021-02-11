@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3874F0E69664CCBC84F3852E /* Pods_thefaelMovie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7925406370AEB3FC6FC1D0 /* Pods_thefaelMovie.framework */; };
+		A80FCD4425D4AED800BDF8C0 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80FCD4325D4AED800BDF8C0 /* FavoriteButton.swift */; };
 		A823C71225AF9F4E0080D271 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823C71125AF9F4E0080D271 /* CollectionViewDataSource.swift */; };
 		A823C71425AFA7F40080D271 /* PopularMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A823C71325AFA7F40080D271 /* PopularMovieCell.swift */; };
 		A82C507225C218740016AC46 /* PopularMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C507125C218740016AC46 /* PopularMoviesInteractor.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		1942C7F2BCEEE5AE485036E5 /* Pods-thefaelMovie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thefaelMovie.release.xcconfig"; path = "Target Support Files/Pods-thefaelMovie/Pods-thefaelMovie.release.xcconfig"; sourceTree = "<group>"; };
+		A80FCD4325D4AED800BDF8C0 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
 		A823C71125AF9F4E0080D271 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		A823C71325AFA7F40080D271 /* PopularMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieCell.swift; sourceTree = "<group>"; };
 		A82C507125C218740016AC46 /* PopularMoviesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesInteractor.swift; sourceTree = "<group>"; };
@@ -89,6 +91,16 @@
 				CF7925406370AEB3FC6FC1D0 /* Pods_thefaelMovie.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A80FCD4225D4AE2A00BDF8C0 /* MovieViews */ = {
+			isa = PBXGroup;
+			children = (
+				A88B40F225C34C79004E70BB /* MovieView.swift */,
+				A872F13125CDB85700741312 /* MovieScrollView.swift */,
+				A80FCD4325D4AED800BDF8C0 /* FavoriteButton.swift */,
+			);
+			path = MovieViews;
 			sourceTree = "<group>";
 		};
 		A856A39225AE144800EA18FE = {
@@ -162,9 +174,8 @@
 		A860355A25B0AA9500AF6FE1 /* Movie */ = {
 			isa = PBXGroup;
 			children = (
+				A80FCD4225D4AE2A00BDF8C0 /* MovieViews */,
 				A855D5F625BA318A000F7A95 /* MovieViewController.swift */,
-				A88B40F225C34C79004E70BB /* MovieView.swift */,
-				A872F13125CDB85700741312 /* MovieScrollView.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -311,6 +322,7 @@
 				A823C71425AFA7F40080D271 /* PopularMovieCell.swift in Sources */,
 				A856A3A125AE144900EA18FE /* SceneDelegate.swift in Sources */,
 				A856A3C125AE3F9500EA18FE /* PopularMovies.swift in Sources */,
+				A80FCD4425D4AED800BDF8C0 /* FavoriteButton.swift in Sources */,
 				A856A3B525AE21AA00EA18FE /* Endpoints.swift in Sources */,
 				A856A3B725AE242300EA18FE /* Constants.swift in Sources */,
 			);
