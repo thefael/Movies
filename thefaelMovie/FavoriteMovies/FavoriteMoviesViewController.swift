@@ -2,6 +2,7 @@ import UIKit
 
 class FavoriteMoviesViewController: UIViewController {
     let favoriteMoviesView = FavoriteMoviesView(frame: Constants.screen)
+    let defaults = UserDefaults.standard
     let dataSource = CollectionViewDataSource<PopularMovie, FavoriteMovieCell>()
     var favoriteMoviesList = [PopularMovie]() {
         didSet {

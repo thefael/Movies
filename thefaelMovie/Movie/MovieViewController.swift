@@ -12,9 +12,10 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    func configureView(with movie: PopularMovie?) {
+    func configureVC(with movie: PopularMovie?) {
         if let movie = movie {
             movieView.movie = movie
         }
+        hidesBottomBarWhenPushed = true
     }
 }
