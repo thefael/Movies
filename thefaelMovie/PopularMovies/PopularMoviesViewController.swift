@@ -62,9 +62,9 @@ class PopularMoviesViewController: UIViewController {
 
 extension PopularMoviesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movieVC = MovieViewController()
-        guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell else { return }
-        movieVC.configureVC(with: cell.popularMovie)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell, let movie = cell.popularMovie else { return }
+        let movieVC = MovieViewController(movie: movie)
+//        movieVC.configureVC(with: cell.popularMovie)
         navigationController?.pushViewController(movieVC, animated: true)
     }
 }

@@ -8,32 +8,21 @@ class MovieView: UIView {
     private let cosmosView = CosmosView()
     private let numOfRatings = UILabel()
     private let favButton = FavoriteButton()
-
-    var scrollView: UIScrollView = {
-        let view = UIScrollView(frame: .zero)
-        view.frame = UIScreen.main.bounds
-        return view
-    }()
-
-    var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Color.darkBlue
-        view.frame.size = UIScreen.main.bounds.size
-        return view
-    }()
-
     private let imageCache = ImageCache.shared
-    var movie: PopularMovie? = nil
+    private let scrollView = UIScrollView(frame: .zero)
+    private let containerView = UIView()
+    private let movie: PopularMovie
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, movie: PopularMovie) {
+        self.movie = movie
         super.init(frame: frame)
         backgroundColor = Color.darkBlue
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func setupView() {
         setupScrollView()
         setupImageView()
@@ -44,6 +33,8 @@ class MovieView: UIView {
     }
 
     func setupScrollView() {
+        containerView.frame.size = UIScreen.main.bounds.size
+        scrollView.frame = UIScreen.main.bounds
         addSubview(scrollView)
         scrollView.addSubview(containerView)
         scrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -52,7 +43,7 @@ class MovieView: UIView {
     }
 
     func setupImageView() {
-        guard let path = movie?.posterPath else { return }
+        guard let path = movie.posterPath else { return }
         guard let image = imageCache.cache[path] else { return }
         movieImageView.image = image
         movieImageView.backgroundColor = .red
@@ -66,7 +57,6 @@ class MovieView: UIView {
     }
 
     func setupTitle() {
-        guard let movie = movie else { return }
         movieTitle.text = movie.title
         movieTitle.textAlignment = .center
         movieTitle.textColor = Color.yellow
@@ -84,7 +74,7 @@ class MovieView: UIView {
 
     func setupRatingView() {
         cosmosView.settings.fillMode = .precise
-        guard let rating = movie?.voteAverage else { return }
+        let rating = movie.voteAverage
         cosmosView.rating = rating/2
         cosmosView.text = String(rating/2).replacingOccurrences(of: ".", with: ",")
 
@@ -101,7 +91,7 @@ class MovieView: UIView {
     }
 
     func setupNumOfRatings() {
-        guard let ratings = movie?.voteCount else { return }
+        let ratings = movie.voteCount
         if ratings >= 1000 {
             numOfRatings.text = "\(String(format: "%.1f", Float(ratings)/1000))k Ratings"
         } else {
@@ -117,7 +107,6 @@ class MovieView: UIView {
     }
 
     func setupFavButton() {
-        guard let movie = movie else { return }
         favButton.setMovieForButton(movie: movie)
         favButton.addTarget(self, action: #selector (buttonTapped), for: .touchUpInside)
         favButton.tintColor = Color.gray
