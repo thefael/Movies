@@ -2,7 +2,6 @@ import UIKit
 
 class FavoriteButton: UIButton {
     private let favCache = FavMovieCache.shared
-    let defaults = UserDefaults.standard
     var movie: PopularMovie? {
         didSet {
             self.setButtonImage()
@@ -23,20 +22,12 @@ class FavoriteButton: UIButton {
 
         let heart = UIImage(systemName: "heart")
         let heartFill = UIImage(systemName: "heart.fill")
-        if isFavorite(movie) {
-            defaults.removeObject(forKey: movie.title)
+        if favCache.isFavorite(movie) {
+            favCache.removeMovie(movie)
             setImage(heart, for: .normal)
         } else {
-            defaults.setObject(movie, forKey: movie.title)
+            favCache.addMovie(movie)
             setImage(heartFill, for: .normal)
-        }
-    }
-
-    func isFavorite(_ movie: PopularMovie) -> Bool {
-        if let _ = defaults.object(forKey: movie.title) {
-            return true
-        } else {
-            return false
         }
     }
 
@@ -44,7 +35,7 @@ class FavoriteButton: UIButton {
         guard let movie = movie else { return }
         let heart = UIImage(systemName: "heart")
         let heartFill = UIImage(systemName: "heart.fill")
-        if isFavorite(movie) {
+        if favCache.isFavorite(movie) {
             setImage(heartFill, for: .normal)
         } else {
             setImage(heart, for: .normal)
