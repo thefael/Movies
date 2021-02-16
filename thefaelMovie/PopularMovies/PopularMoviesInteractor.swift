@@ -1,7 +1,7 @@
 import UIKit
 
 protocol Interactor {
-    func loadMovieLists(completion: @escaping ((Result<[PopularMovie], Error>) -> Void))
+    func loadMovieList(completion: @escaping ((Result<[PopularMovie], Error>) -> Void))
 }
 
 class PopularMoviesInteractor: Interactor {
@@ -11,7 +11,7 @@ class PopularMoviesInteractor: Interactor {
         self.service = service
     }
 
-    func loadMovieLists(completion: @escaping ((Result<[PopularMovie], Error>) -> Void)) {
+    func loadMovieList(completion: @escaping ((Result<[PopularMovie], Error>) -> Void)) {
         service.fetchData(with: Endpoints.popularMoviesListURL()) { (result: Result<PopularMovies, Error>) in
             switch result {
             case .success(let movieList):
