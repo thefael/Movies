@@ -13,7 +13,7 @@ class PopularMoviesViewController: UIViewController {
         }
     }
 
-    init(interactor: Interactor) {
+    init(interactor: Interactor = PopularMoviesInteractor()) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -52,19 +52,22 @@ class PopularMoviesViewController: UIViewController {
     }
 
     func fetchPopularMovieList() {
-        interactor.loadMovieList(onSuccess: { popularMoviesList in
-            self.popularMoviesList = popularMoviesList
-        }, onError: { error in
-            print(error)
-        })
+        interactor.loadMovieLists { result in
+            switch result {
+            case .success(let movieList):
+                self.popularMoviesList = movieList
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
 extension PopularMoviesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movieVC = MovieViewController()
-        guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell else { return }
-        movieVC.configureView(with: cell.popularMovie)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell, let movie = cell.popularMovie else { return }
+        let movieVC = MovieViewController(movie: movie)
+//        movieVC.configureVC(with: cell.popularMovie)
         navigationController?.pushViewController(movieVC, animated: true)
     }
 }

@@ -8,7 +8,7 @@ class PopularMovieCell: UICollectionViewCell {
         didSet {
             if let popularMovie = self.popularMovie {
                 guard let posterPathString = popularMovie.posterPath else { return }
-                self.fetchImage(with: posterPathString)
+                self.fetchImage(from: posterPathString)
             }
         }
     }
@@ -16,19 +16,18 @@ class PopularMovieCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .gray
-        configureSubviews()
-        setImageConstraints()
+        setupImageView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func fetchImage(with string: String) {
-        if let image = imageCache.cache[string] {
+    private func fetchImage(from path: String) {
+        if let image = imageCache.cache[path] {
             imageView.image = image
         } else {
-            let url = Endpoints.imageURL(from: string)
+            let url = Endpoints.imageURL(from: path)
             service.fetchImage(with: url) { result in
                 switch result {
                 case .failure(let error):
@@ -36,20 +35,15 @@ class PopularMovieCell: UICollectionViewCell {
                 case .success(let image):
                     DispatchQueue.main.async {
                         self.imageView.image = image
-                        self.imageCache.cache[string] = image
+                        self.imageCache.cache[path] = image
                     }
                 }
             }
         }
     }
 
-    private func configureSubviews() {
+    private func setupImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(imageView)
-        imageView.clipsToBounds = true
-    }
-
-    private func setImageConstraints() {
         contentView.addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true

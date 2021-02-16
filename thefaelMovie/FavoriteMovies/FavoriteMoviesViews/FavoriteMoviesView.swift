@@ -1,20 +1,20 @@
 import UIKit
 
-class PopularMoviesView: UIView {
+class FavoriteMoviesView: UIView {
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     private let layout = UICollectionViewFlowLayout()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
+    
     required init?(coder: NSCoder) {
-        fatalError("Required init gone wrong.")
+        fatalError("init(coder:) has not been implemented")
     }
 
     func createFlowLayout() {
-        let width = Constants.screen.width/2
-        let height = width / CGFloat(Constants.posterAspectRatio)
+        let width = Constants.screen.width
+        let height = width / 3
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: width, height: height)
         layout.minimumInteritemSpacing = 0
@@ -22,7 +22,6 @@ class PopularMoviesView: UIView {
     }
 
     func setupView() {
-        backgroundColor = .white
         collectionView = UICollectionView(frame: Constants.screen, collectionViewLayout: layout)
         collectionView.backgroundColor = Color.darkBlue
         addSubview(collectionView)
