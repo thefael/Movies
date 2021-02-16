@@ -30,16 +30,23 @@ class FavoriteMovieCell: UICollectionViewCell {
 
     private func loadImage() {
         guard let posterPath = favoriteMovie?.posterPath else { return }
-        let service = URLSessionService()
-        let url = Endpoints.imageURL(from: posterPath)
-        service.fetchImage(with: url) { result in
-            switch result {
-            case .success(let image):
-                DispatchQueue.main.async {
-                    self.movieImage.image = image
+        let imageCache = ImageCache.shared
+        if let image = imageCache.cache[posterPath] {
+            DispatchQueue.main.async {
+                self.movieImage.image = image
+            }
+        } else {
+            let service = URLSessionService()
+            let url = Endpoints.imageURL(from: posterPath)
+            service.fetchImage(with: url) { result in
+                switch result {
+                case .success(let image):
+                    DispatchQueue.main.async {
+                        self.movieImage.image = image
+                    }
+                case .failure(let error):
+                    print(error)
                 }
-            case .failure(let error):
-                print(error)
             }
         }
     }
