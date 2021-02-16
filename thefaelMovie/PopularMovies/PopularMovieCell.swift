@@ -8,7 +8,7 @@ class PopularMovieCell: UICollectionViewCell {
         didSet {
             if let popularMovie = self.popularMovie {
                 guard let posterPathString = popularMovie.posterPath else { return }
-                self.fetchImage(with: posterPathString)
+                self.fetchImage(from: posterPathString)
             }
         }
     }
@@ -23,11 +23,11 @@ class PopularMovieCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func fetchImage(with string: String) {
-        if let image = imageCache.cache[string] {
+    private func fetchImage(from path: String) {
+        if let image = imageCache.cache[path] {
             imageView.image = image
         } else {
-            let url = Endpoints.imageURL(from: string)
+            let url = Endpoints.imageURL(from: path)
             service.fetchImage(with: url) { result in
                 switch result {
                 case .failure(let error):
@@ -35,7 +35,7 @@ class PopularMovieCell: UICollectionViewCell {
                 case .success(let image):
                     DispatchQueue.main.async {
                         self.imageView.image = image
-                        self.imageCache.cache[string] = image
+                        self.imageCache.cache[path] = image
                     }
                 }
             }

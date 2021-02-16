@@ -13,7 +13,7 @@ class PopularMoviesViewController: UIViewController {
         }
     }
 
-    init(interactor: Interactor) {
+    init(interactor: Interactor = PopularMoviesInteractor()) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -52,11 +52,14 @@ class PopularMoviesViewController: UIViewController {
     }
 
     func fetchPopularMovieList() {
-        interactor.loadMovieList(onSuccess: { popularMoviesList in
-            self.popularMoviesList = popularMoviesList
-        }, onError: { error in
-            print(error)
-        })
+        interactor.loadMovieLists { result in
+            switch result {
+            case .success(let movieList):
+                self.popularMoviesList = movieList
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
