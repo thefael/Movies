@@ -2,15 +2,8 @@ import UIKit
 
 class FavoriteMoviesViewController: UIViewController {
     let favoriteMoviesView = FavoriteMoviesView(frame: Constants.screen)
-    let defaults = UserDefaults.standard
+    let favMovieCache = FavMovieCache.shared
     let dataSource = CollectionViewDataSource<PopularMovie, FavoriteMovieCell>()
-    var favoriteMoviesList = [PopularMovie]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.dataSource.items = self.favoriteMoviesList
-            }
-        }
-    }
 
     override func loadView() {
         view = favoriteMoviesView
@@ -23,6 +16,14 @@ class FavoriteMoviesViewController: UIViewController {
         configureCollectionView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.dataSource.items = self.favMovieCache.getFavList()
+            self.favoriteMoviesView.collectionView.reloadData()
+        }
+    }
+
     func setupCollectionView() {
         favoriteMoviesView.createFlowLayout()
         favoriteMoviesView.setupView()
@@ -31,7 +32,6 @@ class FavoriteMoviesViewController: UIViewController {
     func configureCollectionView() {
         favoriteMoviesView.collectionView.register(FavoriteMovieCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
         favoriteMoviesView.collectionView.dataSource = dataSource
-        favoriteMoviesView.collectionView.reloadData()
     }
 
     func configureCell() {
