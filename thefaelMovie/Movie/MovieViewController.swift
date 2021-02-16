@@ -5,7 +5,6 @@ class MovieViewController: UIViewController {
     lazy var movieView = MovieView(frame: Constants.screen, movie: movie)
 
     init(movie: PopularMovie) {
-//        self.init(nibName: nil, bundle: nil)
         self.movie = movie
         super.init(nibName: nil, bundle: nil)
         movieView.setupView()
@@ -18,18 +17,9 @@ class MovieViewController: UIViewController {
 
     override func loadView() {
         view = movieView
-//        movieView.setupView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        movieView.setupView()
     }
-
-//    func configureVC(with movie: PopularMovie?) {
-//        if let movie = movie {
-//            movieView.movie = movie
-//        }
-//        hidesBottomBarWhenPushed = true
-//    }
 }

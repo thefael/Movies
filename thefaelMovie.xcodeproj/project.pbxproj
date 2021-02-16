@@ -100,6 +100,15 @@
 			path = MovieViews;
 			sourceTree = "<group>";
 		};
+		A823CA6B25DB73A1002E372F /* FavoriteMoviesViews */ = {
+			isa = PBXGroup;
+			children = (
+				A8BC895325D30BE3008A813C /* FavoriteMoviesView.swift */,
+				A8BC895725D342A9008A813C /* FavoriteMovieCell.swift */,
+			);
+			path = FavoriteMoviesViews;
+			sourceTree = "<group>";
+		};
 		A832207425D7133C003CE879 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,9 +197,8 @@
 		A8BC895225D30ABD008A813C /* FavoriteMovies */ = {
 			isa = PBXGroup;
 			children = (
+				A823CA6B25DB73A1002E372F /* FavoriteMoviesViews */,
 				A8BC895525D30F1F008A813C /* FavoriteMoviesViewController.swift */,
-				A8BC895325D30BE3008A813C /* FavoriteMoviesView.swift */,
-				A8BC895725D342A9008A813C /* FavoriteMovieCell.swift */,
 			);
 			path = FavoriteMovies;
 			sourceTree = "<group>";
