@@ -1,9 +1,10 @@
 import UIKit
 
 class FavoriteMovieCell: UICollectionViewCell {
-    var favoriteMovie: PopularMovie? {
+    var favoriteMovie: PopularMovie?
+    var loadImage: (() -> Void)? {
         didSet {
-            self.loadImage()
+            self.loadImage?()
         }
     }
     let movieImage = UIImageView()
@@ -26,28 +27,5 @@ class FavoriteMovieCell: UICollectionViewCell {
         movieImage.heightAnchor.constraint(equalTo: self.contentView.heightAnchor).isActive = true
         movieImage.widthAnchor.constraint(equalToConstant: Constants.screen.width / 3 * CGFloat(Constants.posterAspectRatio)).isActive = true
         movieImage.contentMode = .scaleAspectFit
-    }
-
-    private func loadImage() {
-        guard let posterPath = favoriteMovie?.posterPath else { return }
-        let imageCache = ImageCache.shared
-        if let image = imageCache.cache[posterPath] {
-            DispatchQueue.main.async {
-                self.movieImage.image = image
-            }
-        } else {
-            let service = URLSessionService()
-            let url = Endpoints.imageURL(from: posterPath)
-            service.fetchImage(with: url) { result in
-                switch result {
-                case .success(let image):
-                    DispatchQueue.main.async {
-                        self.movieImage.image = image
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
     }
 }

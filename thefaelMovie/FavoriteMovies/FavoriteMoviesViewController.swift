@@ -4,15 +4,16 @@ class FavoriteMoviesViewController: UIViewController {
     let favoriteMoviesView = FavoriteMoviesView(frame: Constants.screen)
     let favMovieCache = FavMovieCache.shared
     let dataSource = CollectionViewDataSource<PopularMovie, FavoriteMovieCell>()
+    let interactor = FavoriteMoviesInteractor()
 
     override func loadView() {
         view = favoriteMoviesView
         setupCollectionView()
+        configureCell()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCell()
         configureCollectionView()
     }
 
@@ -37,6 +38,7 @@ class FavoriteMoviesViewController: UIViewController {
     func configureCell() {
         dataSource.configureCell = { item, cell in
             cell.favoriteMovie = item
+            cell.loadImage = { self.interactor.loadImage(from: item, into: cell) }
         }
     }
 }
