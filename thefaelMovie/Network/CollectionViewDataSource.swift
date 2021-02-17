@@ -16,6 +16,4 @@ class CollectionViewDataSource<T, Cell: UICollectionViewCell>: NSObject, UIColle
         configureCell?(item, cell)
         return cell
     }
-
-
 }

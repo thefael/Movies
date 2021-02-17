@@ -1,7 +1,7 @@
 import UIKit
 
 class PopularMoviesViewController: UIViewController {
-    let interactor: Interactor
+    let interactor: PopularMoviesInteractable
     let popularMoviesView = PopularMoviesView(frame: Constants.screen)
     let dataSource = CollectionViewDataSource<PopularMovie, PopularMovieCell>()
     var popularMoviesList = [PopularMovie]() {
@@ -13,7 +13,7 @@ class PopularMoviesViewController: UIViewController {
         }
     }
 
-    init(interactor: Interactor = PopularMoviesInteractor()) {
+    init(interactor: PopularMoviesInteractable = PopularMoviesInteractor()) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -52,7 +52,7 @@ class PopularMoviesViewController: UIViewController {
     }
 
     func fetchPopularMovieList() {
-        interactor.loadMovieLists { result in
+        interactor.loadMovieList { result in
             switch result {
             case .success(let movieList):
                 self.popularMoviesList = movieList
@@ -67,7 +67,6 @@ extension PopularMoviesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PopularMovieCell, let movie = cell.popularMovie else { return }
         let movieVC = MovieViewController(movie: movie)
-//        movieVC.configureVC(with: cell.popularMovie)
         navigationController?.pushViewController(movieVC, animated: true)
     }
 }
