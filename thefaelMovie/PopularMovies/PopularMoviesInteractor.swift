@@ -1,10 +1,10 @@
 import UIKit
 
-protocol Interactor {
+protocol PopularMoviesInteractable {
     func loadMovieList(completion: @escaping ((Result<[PopularMovie], Error>) -> Void))
 }
 
-class PopularMoviesInteractor: Interactor {
+class PopularMoviesInteractor: PopularMoviesInteractable {
     let service: Service
 
     init(service: Service = URLSessionService()) {

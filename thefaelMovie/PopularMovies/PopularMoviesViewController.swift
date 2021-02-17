@@ -1,7 +1,7 @@
 import UIKit
 
 class PopularMoviesViewController: UIViewController {
-    let interactor: Interactor
+    let interactor: PopularMoviesInteractable
     let popularMoviesView = PopularMoviesView(frame: Constants.screen)
     let dataSource = CollectionViewDataSource<PopularMovie, PopularMovieCell>()
     var popularMoviesList = [PopularMovie]() {
@@ -13,7 +13,7 @@ class PopularMoviesViewController: UIViewController {
         }
     }
 
-    init(interactor: Interactor = PopularMoviesInteractor()) {
+    init(interactor: PopularMoviesInteractable = PopularMoviesInteractor()) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
