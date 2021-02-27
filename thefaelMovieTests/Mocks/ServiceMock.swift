@@ -8,6 +8,4 @@ class ServiceMock<U>: Service {
     func fetchImage(with url: URL, completion: @escaping ((Result<UIImage, Error>) -> Void)) {
         fetchImageArgs = (url, completion)
     }
-
-    
 }

@@ -38,7 +38,18 @@ class FavoriteMoviesViewController: UIViewController {
     func configureCell() {
         dataSource.configureCell = { item, cell in
             cell.favoriteMovie = item
-            cell.loadImage = { self.interactor.loadImage(from: item, into: cell) }
+            cell.loadImage = {
+                self.interactor.loadImage(from: item) { result in
+                    switch result {
+                    case .success(let image):
+                        DispatchQueue.main.async {
+                            cell.movieImage.image = image
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
         }
     }
 }
