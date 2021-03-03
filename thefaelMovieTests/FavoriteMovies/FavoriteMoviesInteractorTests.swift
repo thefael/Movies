@@ -10,6 +10,10 @@ class FavoriteMoviesInteractorTests: XCTestCase {
     lazy var favoriteMoviesInteractor = FavoriteMoviesInteractor(service: service, imageCache: imageCache)
     var result: Result<UIImage, Error>?
 
+    override func setUp() {
+        imageCache.cache.removeAll()
+    }
+
     func test_loadImage_whenImageCacheHasImage_shouldCallCompletionWithCorrectImage() {
         let image = UIImage()
         imageCache.cache[posterPath] = image
@@ -17,6 +21,16 @@ class FavoriteMoviesInteractorTests: XCTestCase {
         favoriteMoviesInteractor.loadImage(from: favoriteMovieFixture) { r in
             self.result = r
         }
+
+        XCTAssertEqual(try result?.get(), image)
+    }
+
+    func test_loadImage_whenServiceFetchImageIsSuccess_shouldCallCompletionWithCorrectImage() {
+        favoriteMoviesInteractor.loadImage(from: favoriteMovieFixture) { result in
+            self.result = result
+        }
+        let image = UIImage()
+        service.fetchImageArgs?.completion(.success(image))
 
         XCTAssertEqual(try result?.get(), image)
     }
