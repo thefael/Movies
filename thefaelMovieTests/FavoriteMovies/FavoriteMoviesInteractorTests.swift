@@ -31,8 +31,19 @@ class FavoriteMoviesInteractorTests: XCTestCase {
         }
         let image = UIImage()
         service.fetchImageArgs?.completion(.success(image))
-
         XCTAssertEqual(try result?.get(), image)
+    }
+
+    func test_loadImage_whenServiceFetchImageIsFailure_shouldCallCompletionWithCorrectError() {
+        favoriteMoviesInteractor.loadImage(from: favoriteMovieFixture) { result in
+            self.result = result
+        }
+        service.fetchImageArgs?.completion(.failure(TestError.error))
+        var error: TestError?
+        do { let _ = try result?.get() }
+        catch let e { error = e as? TestError }
+
+        XCTAssertEqual(error, TestError.error)
     }
 
     private func generatePopularMovie(with posterPath: String) -> PopularMovie {
@@ -43,5 +54,6 @@ class FavoriteMoviesInteractorTests: XCTestCase {
 
 enum TestError: Int, Error {
     case error
+    case error2
 }
 
