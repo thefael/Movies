@@ -14,7 +14,10 @@ class FavoriteMoviesInteractor: FavoriteMoviesInteractable{
     }
 
     func loadImage(from item: PopularMovie, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        guard let posterPath = item.posterPath else { return }
+        guard let posterPath = item.posterPath else {
+            completion(.failure(CommonError.noPosterPath))
+            return
+        }
         if let image = imageCache?.getCache()[posterPath] {
             completion(.success(image))
         } else {
@@ -27,14 +30,6 @@ class FavoriteMoviesInteractor: FavoriteMoviesInteractable{
                     completion(.failure(error))
                 }
             }
-        }
-    }
-
-    func garanteeMainQueue(_ work: @escaping () -> Void) {
-        if Thread.isMainThread {
-            work()
-        } else {
-            DispatchQueue.main.async { work() }
         }
     }
 }

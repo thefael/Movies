@@ -35,6 +35,7 @@
 		A8BC895625D30F1F008A813C /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BC895525D30F1F008A813C /* FavoriteMoviesViewController.swift */; };
 		A8BC895825D342A9008A813C /* FavoriteMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BC895725D342A9008A813C /* FavoriteMovieCell.swift */; };
 		A8CEB84825C1DD3400197105 /* PopularMoviesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CEB84725C1DD3400197105 /* PopularMoviesView.swift */; };
+		A8E72A1025F096CD00F9DDCA /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E72A0F25F096CD00F9DDCA /* CommonError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		A8BC895525D30F1F008A813C /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
 		A8BC895725D342A9008A813C /* FavoriteMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieCell.swift; sourceTree = "<group>"; };
 		A8CEB84725C1DD3400197105 /* PopularMoviesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesView.swift; sourceTree = "<group>"; };
+		A8E72A0F25F096CD00F9DDCA /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		CCB7E6B2347BCD3A00DF454E /* Pods-thefaelMovie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thefaelMovie.debug.xcconfig"; path = "Target Support Files/Pods-thefaelMovie/Pods-thefaelMovie.debug.xcconfig"; sourceTree = "<group>"; };
 		CF7925406370AEB3FC6FC1D0 /* Pods_thefaelMovie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thefaelMovie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -189,6 +191,7 @@
 		A856A39D25AE144900EA18FE /* thefaelMovie */ = {
 			isa = PBXGroup;
 			children = (
+				A8E72A0E25F096B200F9DDCA /* CommonError */,
 				A832207425D7133C003CE879 /* Cache */,
 				A8BC895225D30ABD008A813C /* FavoriteMovies */,
 				A860355A25B0AA9500AF6FE1 /* Movie */,
@@ -261,6 +264,14 @@
 				A8A25C2C25E603E400CA9696 /* ImageCacheMock.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A8E72A0E25F096B200F9DDCA /* CommonError */ = {
+			isa = PBXGroup;
+			children = (
+				A8E72A0F25F096CD00F9DDCA /* CommonError.swift */,
+			);
+			path = CommonError;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +442,7 @@
 				A8573A5525D45B40003E5B1C /* FavMovieCache.swift in Sources */,
 				A8BC895825D342A9008A813C /* FavoriteMovieCell.swift in Sources */,
 				A8CEB84825C1DD3400197105 /* PopularMoviesView.swift in Sources */,
+				A8E72A1025F096CD00F9DDCA /* CommonError.swift in Sources */,
 				A823C71225AF9F4E0080D271 /* CollectionViewDataSource.swift in Sources */,
 				A823C71425AFA7F40080D271 /* PopularMovieCell.swift in Sources */,
 				A856A3A125AE144900EA18FE /* SceneDelegate.swift in Sources */,
