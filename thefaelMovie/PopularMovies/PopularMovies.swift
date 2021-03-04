@@ -14,7 +14,7 @@ struct PopularMovies: Codable {
     }
 }
 
-struct PopularMovie: Codable {
+struct PopularMovie: Codable, Equatable {
     let posterPath: String?
     let adult: Bool
     let overview: String
