@@ -16,6 +16,18 @@ class PopularMoviesInteractorTests: XCTestCase {
         XCTAssertEqual(try result?.get(), popularMoviesFixture.movies)
     }
 
+    func test_loadMovieList_whenServiceFetchDataIsFailure_ShouldCallCompletionWithCorrectError() {
+        popularMoviesInteractor.loadMovieList { result in
+            self.result = result
+        }
+        service.fetchDataArgs?.completion(.failure(TestError.error))
+        var error: TestError?
+        do { let _ = try result?.get() }
+        catch let e { error = e as? TestError}
+
+        XCTAssertEqual(error, TestError.error)
+    }
+
     private func generatePopularMovies() -> PopularMovies {
         let popularMovie = PopularMovie(posterPath: nil, adult: true, overview: "", releaseDate: "", genreIDs: [], id: 0, title: "", language: "", backdropPath: nil, popularity: 0.0, voteCount: 0, video: false, voteAverage: 0.0)
         let popularMoviesFixture = PopularMovies(page: 0, movies: [popularMovie], totalResults: 0, totalPages: 0)
