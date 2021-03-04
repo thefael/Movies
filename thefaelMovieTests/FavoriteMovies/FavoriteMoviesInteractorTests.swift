@@ -14,6 +14,18 @@ class FavoriteMoviesInteractorTests: XCTestCase {
         imageCache.cache.removeAll()
     }
 
+    func test_loadImage_whenPosterPathIsNil_shouldCallCompletionWithCorrectError() {
+        let favoriteMovieFixture = generatePopularMovie(with: nil)
+        favoriteMoviesInteractor.loadImage(from: favoriteMovieFixture) { result in
+            self.result = result
+        }
+        var error: CommonError?
+        do { let _ = try result?.get() }
+        catch let e { error = e as? CommonError }
+
+        XCTAssertEqual(error, CommonError.noPosterPath)
+    }
+
     func test_loadImage_whenImageCacheHasImage_shouldCallCompletionWithCorrectImage() {
         let image = UIImage()
         imageCache.cache[posterPath] = image
@@ -46,7 +58,7 @@ class FavoriteMoviesInteractorTests: XCTestCase {
         XCTAssertEqual(error, TestError.error)
     }
 
-    private func generatePopularMovie(with posterPath: String) -> PopularMovie {
+    private func generatePopularMovie(with posterPath: String?) -> PopularMovie {
         let popularMovieFixture = PopularMovie(posterPath: posterPath, adult: true, overview: "", releaseDate: "", genreIDs: [], id: 0, title: "", language: "", backdropPath: nil, popularity: 0, voteCount: 0, video: false, voteAverage: 0)
         return popularMovieFixture
     }
