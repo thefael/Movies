@@ -64,8 +64,3 @@ class FavoriteMoviesInteractorTests: XCTestCase {
     }
 }
 
-enum TestError: Int, Error {
-    case error
-    case error2
-}
-
