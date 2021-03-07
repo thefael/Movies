@@ -6,33 +6,41 @@ protocol Service {
 }
 
 class URLSessionService: Service {
-    private let decoder = JSONDecoder()
-    private let session = URLSession.shared
+    private let decoder: JSONDecoder
+    private let session: URLSessionAdapter
+
+    init(decoder: JSONDecoder = JSONDecoder(), session: URLSessionAdapter = URLSessionAdaptedBunda()) {
+        self.decoder = decoder
+        self.session = session
+    }
 
     func fetchData<T: Decodable>(with url: URL, completion: @escaping ((Result<T, Error>) -> Void)) {
-        let dataTask = session.dataTask(with: url) { (data, response, error) in
-            if let error = error {
+        session.fetchData(url: url) { result in
+            switch result {
+            case .failure(let error):
                 completion(.failure(error))
-            } else if let data = data {
-                do {
-                    let obj = try self.decoder.decode(T.self, from: data)
+            case .success(let data):
+                if let obj = try? self.decoder.decode(T.self, from: data) {
                     completion(.success(obj))
-                } catch {
-                    completion(.failure(error))
+                } else {
+                    completion(.failure(CommonError.failToDecodeData))
                 }
             }
         }
-        dataTask.resume()
     }
 
     func fetchImage(with url: URL, completion: @escaping ((Result<UIImage, Error>) -> Void)) {
-        let imageTask = session.dataTask(with: url) { (data, _, error) in
-            if let error = error {
+        session.fetchData(url: url) { result in
+            switch result {
+            case .failure(let error):
                 completion(.failure(error))
-            } else if let data =  data, let image = UIImage(data: data) {
-                completion(.success(image))
+            case .success(let data):
+                if let image = UIImage(data: data) {
+                    completion(.success(image))
+                } else {
+                    completion(.failure(CommonError.failToDecodeData))
+                }
             }
         }
-        imageTask.resume()
     }
 }
