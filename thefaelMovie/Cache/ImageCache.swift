@@ -1,7 +1,7 @@
 import UIKit
 
 protocol Cache {
-    func getCache() -> [String: UIImage]
+    var cache: [String: UIImage] { get set }
 }
 
 class ImageCache: Cache {
@@ -9,8 +9,4 @@ class ImageCache: Cache {
     var cache = [String: UIImage]()
 
     private init() {}
-
-    func getCache() -> [String: UIImage] {
-        return cache
-    }
 }

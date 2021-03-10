@@ -3,7 +3,7 @@ import UIKit
 class FavMovieCache {
     static var shared = FavMovieCache()
     private let defaults = UserDefaults.standard
-    private var favMoviesData = Dictionary<String, Data>()
+    private var favMoviesData = [String: Data]()
 
     private init() {
         if let obj = defaults.object(forKey: "favoriteMoviesList") as? Dictionary<String, Data> {

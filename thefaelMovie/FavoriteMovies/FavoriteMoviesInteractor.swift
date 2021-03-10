@@ -18,7 +18,7 @@ class FavoriteMoviesInteractor: FavoriteMoviesInteractable{
             completion(.failure(CommonError.noPosterPath))
             return
         }
-        if let image = imageCache?.getCache()[posterPath] {
+        if let image = imageCache?.cache[posterPath] {
             completion(.success(image))
         } else {
             let url = Endpoints.imageURL(from: posterPath)

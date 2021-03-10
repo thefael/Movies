@@ -6,8 +6,4 @@ class ImageCacheMock: Cache {
     var cache = [String: UIImage]()
 
     private init() {}
-
-    func getCache() -> [String : UIImage] {
-        return cache
-    }
 }
