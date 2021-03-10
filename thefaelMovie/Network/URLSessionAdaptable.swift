@@ -1,10 +1,10 @@
 import Foundation
 
-protocol URLSessionAdapter {
+protocol URLSessionAdaptable {
     func fetchData(url: URL, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
-class URLSessionAdaptedBunda: URLSessionAdapter {
+class URLSessionAdaptedBunda: URLSessionAdaptable {
     private let urlSession: URLSession
 
     init(urlSession: URLSession = .shared) {
