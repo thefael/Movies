@@ -5,34 +5,101 @@ class URLSessionServiceTests: XCTestCase {
 
     let urlSessionAdapter = URLSessionAdapterMock()
     lazy var service = URLSessionService(decoder: JSONDecoder(), session: urlSessionAdapter)
-    var result: Result<UIImage, Error>?
-    let url = URL(string: "https://conteudo.imguol.com.br/c/noticias/f1/2019/11/02/a-nasa-elegeu-como-foto-astronomica-do-dia-em-22-de-outubro-esta-imagem-da-via-lactea-capturada-por-jheison-huerta-no-salar-de-uyuni-na-bolivia-1572723035380_v2_900x506.jpg")!
+    var fetchImageResult: Result<UIImage, Error>?
+    var fetchDataResult: Result<JSONObj, Error>?
+    let url = URL(string: "hue")!
 
-    func test_fetchImage_whenSessionFetchDataIsFailure_shouldCallCompletionWithCorrectError() {
-        service.fetchImage(with: url) { r in
-            self.result = r
-        }
 
+    func test_fetchData_whenSessionFetchDataIsFailure_shouldCallCompletionWithCorrectError() {
+        fetchData()
         urlSessionAdapter.fetchDataArgs?.completion(.failure(TestError.error))
         var error: TestError?
-        do { let _ = try result?.get() }
+        do { let _ = try fetchDataResult?.get() }
+        catch let e { error = e as? TestError }
+        
+        XCTAssertEqual(error, TestError.error)
+    }
+
+    func test_fetchData_whenSessionFetchDataIsSuccess_shouldCallCompletionWithCorrectObject() {
+        fetchData()
+        guard let data = JSONObj().data else {
+            XCTFail()
+            return
+        }
+        urlSessionAdapter.fetchDataArgs?.completion(.success(data))
+        let decodedData = try? JSONDecoder().decode(JSONObj.self, from: data)
+        let obj = try? fetchDataResult?.get()
+
+        XCTAssertEqual(obj, decodedData)
+    }
+
+    func test_fetchData_whenDecodeDataIsFailure_shouldCallCompletionWithCorrectError() {
+        fetchData()
+        let invalidData = Data()
+        urlSessionAdapter.fetchDataArgs?.completion(.success(invalidData))
+        var error: CommonError?
+        do { let _ = try fetchDataResult?.get() }
+        catch let e { error = e as? CommonError }
+
+        XCTAssertEqual(error, .failToDecodeData)
+    }
+
+    func test_fetchImage_whenSessionFetchDataIsFailure_shouldCallCompletionWithCorrectError() {
+        fetchImage()
+        urlSessionAdapter.fetchDataArgs?.completion(.failure(TestError.error))
+        var error: TestError?
+        do { let _ = try fetchImageResult?.get() }
         catch let e { error = e as? TestError }
 
         XCTAssertEqual(error, TestError.error)
     }
 
     func test_fetchImage_whenSessionFetchDataIsSuccess_shouldCallCompletionWithCorrectImage() {
-        service.fetchImage(with: url) { r in
-            self.result = r
-        }
-
-        if let data = try? NSData(contentsOf: url) as Data, let image = UIImage(data: data) {
+        fetchImage()
+        if let data = UIImage(systemName: "heart")?.pngData(), let image = UIImage(data: data) {
             urlSessionAdapter.fetchDataArgs?.completion(.success(data))
-            let imageData = (try? result?.get())?.pngData()
+            let imageData = (try? fetchImageResult?.get())?.pngData()
             let imageData2 = image.pngData()
+
             XCTAssertEqual(imageData, imageData2)
         } else {
             XCTFail()
         }
+    }
+
+    func test_fetchImage_whenDecodeDataIsFailure_shouldCallCompletionWithCorrectError() {
+        fetchImage()
+        let invalidData = Data()
+
+        urlSessionAdapter.fetchDataArgs?.completion(.success(invalidData))
+        var error: CommonError?
+        do { let _ = try fetchImageResult?.get() }
+        catch let e { error = e as? CommonError}
+
+        XCTAssertEqual(error, CommonError.failToDecodeData)
+    }
+
+    func fetchImage() {
+        service.fetchImage(with: url) { r in
+           self.fetchImageResult = r
+        }
+    }
+
+    func fetchData() {
+        service.fetchData(with: url) { r in
+            self.fetchDataResult = r
+        }
+    }
+}
+
+struct JSONObj: Codable, Equatable {
+    let variable: Int
+
+    init(_ variable: Int = 1) {
+        self.variable = variable
+    }
+
+    var data: Data? {
+        return try? JSONEncoder().encode(self)
     }
 }
