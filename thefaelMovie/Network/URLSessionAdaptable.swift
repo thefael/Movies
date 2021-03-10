@@ -4,7 +4,7 @@ protocol URLSessionAdaptable {
     func fetchData(url: URL, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
-class URLSessionAdaptedBunda: URLSessionAdaptable {
+class URLSessionAdapter: URLSessionAdaptable {
     private let urlSession: URLSession
 
     init(urlSession: URLSession = .shared) {

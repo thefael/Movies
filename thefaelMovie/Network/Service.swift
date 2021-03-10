@@ -7,9 +7,9 @@ protocol Service {
 
 class URLSessionService: Service {
     private let decoder: JSONDecoder
-    private let session: URLSessionAdapter
+    private let session: URLSessionAdaptable
 
-    init(decoder: JSONDecoder = JSONDecoder(), session: URLSessionAdapter = URLSessionAdaptedBunda()) {
+    init(decoder: JSONDecoder = JSONDecoder(), session: URLSessionAdaptable = URLSessionAdapter()) {
         self.decoder = decoder
         self.session = session
     }
