@@ -6,7 +6,7 @@ class URLSessionServiceTests: XCTestCase {
     let urlSessionAdapter = URLSessionAdapterMock()
     lazy var service = URLSessionService(decoder: JSONDecoder(), session: urlSessionAdapter)
     var fetchImageResult: Result<UIImage, Error>?
-    var fetchDataResult: Result<JSONObj, Error>?
+    var fetchDataResult: Result<JSONObject, Error>?
     let url = URL(string: "hue")!
 
 
@@ -22,12 +22,12 @@ class URLSessionServiceTests: XCTestCase {
 
     func test_fetchData_whenSessionFetchDataIsSuccess_shouldCallCompletionWithCorrectObject() {
         fetchData()
-        guard let data = JSONObj().data else {
+        guard let data = JSONObject().data else {
             XCTFail()
             return
         }
         urlSessionAdapter.fetchDataArgs?.completion(.success(data))
-        let decodedData = try? JSONDecoder().decode(JSONObj.self, from: data)
+        let decodedData = try? JSONDecoder().decode(JSONObject.self, from: data)
         let obj = try? fetchDataResult?.get()
 
         XCTAssertEqual(obj, decodedData)
@@ -89,17 +89,5 @@ class URLSessionServiceTests: XCTestCase {
         service.fetchData(with: url) { r in
             self.fetchDataResult = r
         }
-    }
-}
-
-struct JSONObj: Codable, Equatable {
-    let variable: Int
-
-    init(_ variable: Int = 1) {
-        self.variable = variable
-    }
-
-    var data: Data? {
-        return try? JSONEncoder().encode(self)
     }
 }
