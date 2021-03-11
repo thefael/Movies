@@ -7,21 +7,18 @@ protocol DataCacheType {
 class FavMovieCache: DataCacheType {
     static var shared = FavMovieCache()
     private let defaults = UserDefaults.standard
-    internal var cache = [String: Data]()
+    var cache = [String: Data]()
 
     private init() {
         if let obj = defaults.object(forKey: "favoriteMoviesList") as? Dictionary<String, Data> {
             cache = obj
-            for dict in cache {
-                print(dataToMovie(data: dict.value).title)
-            }
         }
     }
 
     func getFavList() -> [PopularMovie] {
         var favMovieList = [PopularMovie]()
         for dict in cache {
-            let movie = dataToMovie(data: dict.value)
+            let movie: PopularMovie = dataToObject(data: dict.value)
             favMovieList.append(movie)
         }
         return favMovieList
@@ -30,7 +27,7 @@ class FavMovieCache: DataCacheType {
     func getMovie(with title: String?) -> PopularMovie? {
         var favMovieList = [PopularMovie]()
         for dict in cache {
-            let movie = dataToMovie(data: dict.value)
+            let movie: PopularMovie = dataToObject(data: dict.value)
             favMovieList.append(movie)
         }
         let movie = favMovieList.first(where: { $0.title == title })
@@ -38,7 +35,7 @@ class FavMovieCache: DataCacheType {
     }
 
     func addMovie(_ movie: PopularMovie) {
-        let data = movieToData(movie: movie)
+        let data = objectToData(object: movie)
         cache[movie.title] = data
         defaults.set(cache, forKey: "favoriteMoviesList")
     }
@@ -58,21 +55,21 @@ class FavMovieCache: DataCacheType {
 }
 
 extension FavMovieCache {
-    func movieToData(movie: PopularMovie) -> Data {
+    func objectToData<T: Encodable>(object: T) -> Data {
         let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(movie)
+            let data = try encoder.encode(object)
             return data
         } catch {
             fatalError("Unable to encode movie to data.")
         }
     }
 
-    func dataToMovie(data: Data) -> PopularMovie {
+    func dataToObject<T: Decodable>(data: Data) -> T {
         let decoder = JSONDecoder()
         do {
-            let movie = try decoder.decode(PopularMovie.self, from: data)
-            return movie
+            let object = try decoder.decode(T.self, from: data)
+            return object
         } catch {
             fatalError("Unable to decode data.")
         }
