@@ -6,9 +6,9 @@ protocol FavoriteMoviesInteractable {
 
 class FavoriteMoviesInteractor: FavoriteMoviesInteractable{
     private var service: Service
-    private let imageCache: Cache?
+    private let imageCache: ImageCacheType?
 
-    init(service: Service = URLSessionService(), imageCache: Cache? = ImageCache.shared) {
+    init(service: Service = URLSessionService(), imageCache: ImageCacheType? = ImageCache.shared) {
         self.service = service
         self.imageCache = imageCache
     }

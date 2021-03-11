@@ -1,14 +1,18 @@
 import UIKit
 
-class FavMovieCache {
+protocol DataCacheType {
+    var cache: [String: Data] { get set }
+}
+
+class FavMovieCache: DataCacheType {
     static var shared = FavMovieCache()
     private let defaults = UserDefaults.standard
-    private var favMoviesData = [String: Data]()
+    internal var cache = [String: Data]()
 
     private init() {
         if let obj = defaults.object(forKey: "favoriteMoviesList") as? Dictionary<String, Data> {
-            favMoviesData = obj
-            for dict in favMoviesData {
+            cache = obj
+            for dict in cache {
                 print(dataToMovie(data: dict.value).title)
             }
         }
@@ -16,7 +20,7 @@ class FavMovieCache {
 
     func getFavList() -> [PopularMovie] {
         var favMovieList = [PopularMovie]()
-        for dict in favMoviesData {
+        for dict in cache {
             let movie = dataToMovie(data: dict.value)
             favMovieList.append(movie)
         }
@@ -25,7 +29,7 @@ class FavMovieCache {
 
     func getMovie(with title: String?) -> PopularMovie? {
         var favMovieList = [PopularMovie]()
-        for dict in favMoviesData {
+        for dict in cache {
             let movie = dataToMovie(data: dict.value)
             favMovieList.append(movie)
         }
@@ -35,17 +39,17 @@ class FavMovieCache {
 
     func addMovie(_ movie: PopularMovie) {
         let data = movieToData(movie: movie)
-        favMoviesData[movie.title] = data
-        defaults.set(favMoviesData, forKey: "favoriteMoviesList")
+        cache[movie.title] = data
+        defaults.set(cache, forKey: "favoriteMoviesList")
     }
 
     func removeMovie(_ movie: PopularMovie) {
-        favMoviesData.removeValue(forKey: movie.title)
-        defaults.set(favMoviesData, forKey: "favoriteMoviesList")
+        cache.removeValue(forKey: movie.title)
+        defaults.set(cache, forKey: "favoriteMoviesList")
     }
 
     func isFavorite(_ movie: PopularMovie) -> Bool {
-        if favMoviesData[movie.title] != nil {
+        if cache[movie.title] != nil {
             return true
         } else {
             return false
