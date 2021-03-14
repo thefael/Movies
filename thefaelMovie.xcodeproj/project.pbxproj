@@ -31,6 +31,8 @@
 		A856A3BF25AE392900EA18FE /* PopularMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A856A3BE25AE392900EA18FE /* PopularMoviesViewController.swift */; };
 		A856A3C125AE3F9500EA18FE /* PopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A856A3C025AE3F9500EA18FE /* PopularMovies.swift */; };
 		A8573A5525D45B40003E5B1C /* FavMovieCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8573A5425D45B40003E5B1C /* FavMovieCache.swift */; };
+		A88557FF25FB0EE000C45443 /* UserDefaultsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88557FE25FB0EE000C45443 /* UserDefaultsAdapter.swift */; };
+		A885580125FB14F400C45443 /* UserDefaultsAdapterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A885580025FB14F400C45443 /* UserDefaultsAdapterMock.swift */; };
 		A88B40F325C34C79004E70BB /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88B40F225C34C79004E70BB /* MovieView.swift */; };
 		A89F4D2125DC2AAC00032AD3 /* FavoriteMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F4D2025DC2AAC00032AD3 /* FavoriteMoviesInteractor.swift */; };
 		A8A25C2D25E603E400CA9696 /* ImageCacheMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A25C2C25E603E400CA9696 /* ImageCacheMock.swift */; };
@@ -84,6 +86,8 @@
 		A856A3BE25AE392900EA18FE /* PopularMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesViewController.swift; sourceTree = "<group>"; };
 		A856A3C025AE3F9500EA18FE /* PopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovies.swift; sourceTree = "<group>"; };
 		A8573A5425D45B40003E5B1C /* FavMovieCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavMovieCache.swift; sourceTree = "<group>"; };
+		A88557FE25FB0EE000C45443 /* UserDefaultsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAdapter.swift; sourceTree = "<group>"; };
+		A885580025FB14F400C45443 /* UserDefaultsAdapterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAdapterMock.swift; sourceTree = "<group>"; };
 		A88B40F225C34C79004E70BB /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		A89F4D2025DC2AAC00032AD3 /* FavoriteMoviesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesInteractor.swift; sourceTree = "<group>"; };
 		A8A25C2C25E603E400CA9696 /* ImageCacheMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheMock.swift; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 			children = (
 				A82C507525C256430016AC46 /* ImageCache.swift */,
 				A8573A5425D45B40003E5B1C /* FavMovieCache.swift */,
+				A88557FE25FB0EE000C45443 /* UserDefaultsAdapter.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 				A8A25C2C25E603E400CA9696 /* ImageCacheMock.swift */,
 				A84F572425F5841F00EF2D54 /* URLSessionAdapterMock.swift */,
 				A83D7B4525F86FC900367D3B /* JSONObject.swift */,
+				A885580025FB14F400C45443 /* UserDefaultsAdapterMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -481,6 +487,7 @@
 			files = (
 				A84F572525F5841F00EF2D54 /* URLSessionAdapterMock.swift in Sources */,
 				A8BF9E3525F130EA00EFADC2 /* TestError.swift in Sources */,
+				A885580125FB14F400C45443 /* UserDefaultsAdapterMock.swift in Sources */,
 				A8A25C2D25E603E400CA9696 /* ImageCacheMock.swift in Sources */,
 				A831AE2825E5B63C001EC3C2 /* ServiceMock.swift in Sources */,
 				A8BF9E3125F12F2700EFADC2 /* PopularMoviesInterectorTests.swift in Sources */,
@@ -500,6 +507,7 @@
 				A855D5F725BA318A000F7A95 /* MovieViewController.swift in Sources */,
 				A82C507225C218740016AC46 /* PopularMoviesInteractor.swift in Sources */,
 				A856A3B925AE272900EA18FE /* Service.swift in Sources */,
+				A88557FF25FB0EE000C45443 /* UserDefaultsAdapter.swift in Sources */,
 				A8BC895425D30BE3008A813C /* FavoriteMoviesView.swift in Sources */,
 				A82C507425C255680016AC46 /* Color.swift in Sources */,
 				A88B40F325C34C79004E70BB /* MovieView.swift in Sources */,

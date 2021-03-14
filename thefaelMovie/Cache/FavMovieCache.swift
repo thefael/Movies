@@ -6,11 +6,12 @@ protocol DataCacheType {
 
 class FavMovieCache: DataCacheType {
     static var shared = FavMovieCache()
-    private let defaults = UserDefaults.standard
+    private var defaults: UserDefaultsAdaptable
     var cache = [String: Data]()
 
-    private init() {
-        if let obj = defaults.object(forKey: "favoriteMoviesList") as? Dictionary<String, Data> {
+    private init(defaults: UserDefaultsAdaptable = UserDefaultsAdapter()) {
+        self.defaults = defaults
+        if let obj = self.defaults.object(forKey: "favoriteMoviesList") as? [String: Data] {
             cache = obj
         }
     }
@@ -24,13 +25,8 @@ class FavMovieCache: DataCacheType {
         return favMovieList
     }
 
-    func getMovie(with title: String?) -> PopularMovie? {
-        var favMovieList = [PopularMovie]()
-        for dict in cache {
-            let movie: PopularMovie = dataToObject(data: dict.value)
-            favMovieList.append(movie)
-        }
-        let movie = favMovieList.first(where: { $0.title == title })
+    func getMovie(title: String?) -> PopularMovie? {
+        let movie = getFavList().first(where: { $0.title == title })
         return movie
     }
 
