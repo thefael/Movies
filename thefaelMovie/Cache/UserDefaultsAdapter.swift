@@ -1,15 +1,17 @@
 import Foundation
 
 protocol UserDefaultsAdaptable {
-    var defaults: UserDefaults { get set }
+    var cache: [String: Data] { get set }
     func set(_ value: Any?, forKey: String)
     func object(forKey: String) -> Any?
 }
 
 class UserDefaultsAdapter: UserDefaultsAdaptable {
+    var cache: [String : Data]
     var defaults: UserDefaults
 
-    init(defaults: UserDefaults = UserDefaults.standard) {
+    init(cache: [String: Data] = [String: Data](), defaults: UserDefaults = UserDefaults.standard) {
+        self.cache = cache
         self.defaults = defaults
     }
 
