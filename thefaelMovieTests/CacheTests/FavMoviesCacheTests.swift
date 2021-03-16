@@ -15,11 +15,11 @@ class FavMoviesCacheTests: XCTestCase {
         XCTAssertEqual(sut, favList)
     }
 
-    func test_addMovie_shouldCallSet() {
-        let validMovie = MovieEncoder().popularMovie
-        favMovieCache.addMovie(validMovie)
-        XCTAssert(userDefaultsAdapterMock.didCallSet)
-    }
+//    func test_addMovie_shouldCallSet() {
+//        let validMovie = MovieEncoder().popularMovie
+//        favMovieCache.addMovie(validMovie)
+//        XCTAssert(userDefaultsAdapterMock.didCallSet)
+//    }
 }
 
 class MovieEncoder {
