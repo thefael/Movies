@@ -2,24 +2,49 @@
 import XCTest
 
 class FavMoviesCacheTests: XCTestCase {
-    let favMovieCache = FavMovieCache.shared
     let userDefaultsAdapterMock = UserDefaultsAdapterMock()
+    lazy var favMovieCache = FavMovieCache(defaults: userDefaultsAdapterMock)
+    let validMovie = MovieEncoder().popularMovie
+    let validData = MovieEncoder().movieData
 
     func test_getFavList_shouldReturnArrayOfPopularMovie() {
         guard let validData = MovieEncoder().movieData else { fatalError("Failed to encode popularMovie on MovieEncoder class") }
         favMovieCache.cache = [String: Data]()
         favMovieCache.cache["key"] = validData
-        let favList = [MovieEncoder().popularMovie]
-        let sut = favMovieCache.getFavList()
+        let correctFavList = [MovieEncoder().popularMovie]
+        let favList = favMovieCache.getFavList()
 
-        XCTAssertEqual(sut, favList)
+        XCTAssertEqual(favList, correctFavList)
     }
 
-//    func test_addMovie_shouldCallSet() {
-//        let validMovie = MovieEncoder().popularMovie
-//        favMovieCache.addMovie(validMovie)
-//        XCTAssert(userDefaultsAdapterMock.didCallSet)
-//    }
+    func test_addMovie_shouldCallSetWithCorrectValue() {
+        favMovieCache.addMovie(validMovie)
+        
+        XCTAssert(userDefaultsAdapterMock.didCallSet)
+    }
+
+    func test_removeMovie_shouldSetCorrectCache() {
+        favMovieCache.removeMovie(validMovie)
+
+        XCTAssert(userDefaultsAdapterMock.didCallObject)
+    }
+
+    func test_IsFavorite_whenMovieIsNotFavorite_ShouldReturnFalse() {
+        favMovieCache.cache = [String: Data]()
+
+        let isFavorite = favMovieCache.isFavorite(validMovie)
+
+        XCTAssertFalse(isFavorite)
+    }
+
+    func test_IsFavorite_whenMovieIsFavorite_ShouldReturnTrue() {
+        favMovieCache.cache = [String: Data]()
+        favMovieCache.cache[validMovie.title] = validData
+
+        let isFavorite = favMovieCache.isFavorite(validMovie)
+
+        XCTAssert(isFavorite)
+    }
 }
 
 class MovieEncoder {
