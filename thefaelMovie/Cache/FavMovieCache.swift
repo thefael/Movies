@@ -16,18 +16,26 @@ class FavMovieCache: DataCacheType {
         }
     }
 
-    func getFavList() -> [PopularMovie] {
+    func getFavList() throws -> [PopularMovie] {
         var favMovieList = [PopularMovie]()
         for dict in cache {
-            let movie: PopularMovie = dataToObject(data: dict.value)
-            favMovieList.append(movie)
+            do {
+                let movie: PopularMovie = try dataToObject(data: dict.value)
+                favMovieList.append(movie)
+            } catch {
+                throw error
+            }
         }
         return favMovieList
     }
 
-    func addMovie(_ movie: PopularMovie) {
-        let data = objectToData(object: movie)
-        cache[movie.title] = data
+    func addMovie(_ movie: PopularMovie) throws {
+        do {
+            let data = try objectToData(object: movie)
+            cache[movie.title] = data
+        } catch {
+            throw error
+        }
         defaults.set(cache, forKey: Constants.favMovieListKey)
     }
 
@@ -52,7 +60,7 @@ extension FavMovieCache {
             let data = try encoder.encode(object)
             return data
         } catch {
-            fatalError("Unable to encode movie to data.")
+            throw CommonError.failToEncodeData
         }
     }
 
@@ -62,7 +70,7 @@ extension FavMovieCache {
             let object = try decoder.decode(T.self, from: data)
             return object
         } catch {
-            fatalError("Unable to decode data.")
+            throw CommonError.failToDecodeData
         }
     }
 }

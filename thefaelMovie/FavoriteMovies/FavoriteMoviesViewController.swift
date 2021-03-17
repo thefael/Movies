@@ -20,7 +20,11 @@ class FavoriteMoviesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.async {
-            self.dataSource.items = self.favMovieCache.getFavList()
+            do {
+                self.dataSource.items = try self.favMovieCache.getFavList()
+            } catch {
+                print(error)
+            }
             self.favoriteMoviesView.collectionView.reloadData()
         }
     }

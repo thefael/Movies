@@ -26,7 +26,8 @@ class FavoriteButton: UIButton {
             favCache.removeMovie(movie)
             setImage(heart, for: .normal)
         } else {
-            favCache.addMovie(movie)
+            do { try favCache.addMovie(movie) }
+            catch { print(error) }
             setImage(heartFill, for: .normal)
         }
     }
