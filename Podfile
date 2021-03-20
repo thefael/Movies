@@ -9,4 +9,9 @@ target 'thefaelMovie' do
     pod 'Cosmos'
     pod 'TinyConstraints'
 
+    target 'thefaelMovieTests' do
+        use_frameworks!
+        pod 'iOSSnapshotTestCase'
+    end
+
 end

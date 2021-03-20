@@ -1,15 +1,16 @@
 import UIKit
 
 class FavoriteButton: UIButton {
-    private let favCache = FavMovieCache.shared
+    private let favCache: DataCacheType
     var movie: PopularMovie? {
         didSet {
             self.setButtonImage()
         }
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(cache: DataCacheType = FavMovieCache.shared) {
+        self.favCache = cache
+        super.init(frame: .zero)
     }
 
     required init?(coder: NSCoder) {

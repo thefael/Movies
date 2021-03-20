@@ -2,6 +2,10 @@ import UIKit
 
 protocol DataCacheType {
     var cache: [String: Data] { get set }
+    func getFavList() throws -> [PopularMovie]
+    func addMovie(_ movie: PopularMovie) throws
+    func removeMovie(_ movie: PopularMovie)
+    func isFavorite(_ movie: PopularMovie) -> Bool 
 }
 
 class FavMovieCache: DataCacheType {
@@ -33,10 +37,10 @@ class FavMovieCache: DataCacheType {
         do {
             let data = try objectToData(object: movie)
             cache[movie.title] = data
+            defaults.set(cache, forKey: Constants.favMovieListKey)
         } catch {
             throw error
         }
-        defaults.set(cache, forKey: Constants.favMovieListKey)
     }
 
     func removeMovie(_ movie: PopularMovie) {
