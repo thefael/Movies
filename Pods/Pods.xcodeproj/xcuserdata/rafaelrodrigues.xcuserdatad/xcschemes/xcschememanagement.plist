@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>TinyConstraints.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>iOSSnapshotTestCase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
