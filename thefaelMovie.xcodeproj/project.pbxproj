@@ -44,12 +44,12 @@
 		A8BC895425D30BE3008A813C /* FavoriteMoviesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BC895325D30BE3008A813C /* FavoriteMoviesView.swift */; };
 		A8BC895625D30F1F008A813C /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BC895525D30F1F008A813C /* FavoriteMoviesViewController.swift */; };
 		A8BC895825D342A9008A813C /* FavoriteMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BC895725D342A9008A813C /* FavoriteMovieCell.swift */; };
-		A8BCEC872605A562006D6017 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A8BCEC862605A562006D6017 /* Podfile */; };
 		A8BF9E3125F12F2700EFADC2 /* PopularMoviesInterectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9E3025F12F2700EFADC2 /* PopularMoviesInterectorTests.swift */; };
 		A8BF9E3525F130EA00EFADC2 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9E3425F130EA00EFADC2 /* TestError.swift */; };
 		A8BF9E3825F17F4600EFADC2 /* URLSessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9E3725F17F4600EFADC2 /* URLSessionServiceTests.swift */; };
 		A8CEB84825C1DD3400197105 /* PopularMoviesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CEB84725C1DD3400197105 /* PopularMoviesView.swift */; };
 		A8E72A1025F096CD00F9DDCA /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E72A0F25F096CD00F9DDCA /* CommonError.swift */; };
+		A8FB74C32606B3D60037426E /* MovieViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FB74C22606B3D60037426E /* MovieViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,12 +105,12 @@
 		A8BC895325D30BE3008A813C /* FavoriteMoviesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesView.swift; sourceTree = "<group>"; };
 		A8BC895525D30F1F008A813C /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
 		A8BC895725D342A9008A813C /* FavoriteMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieCell.swift; sourceTree = "<group>"; };
-		A8BCEC862605A562006D6017 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		A8BF9E3025F12F2700EFADC2 /* PopularMoviesInterectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesInterectorTests.swift; sourceTree = "<group>"; };
 		A8BF9E3425F130EA00EFADC2 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		A8BF9E3725F17F4600EFADC2 /* URLSessionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionServiceTests.swift; sourceTree = "<group>"; };
 		A8CEB84725C1DD3400197105 /* PopularMoviesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesView.swift; sourceTree = "<group>"; };
 		A8E72A0F25F096CD00F9DDCA /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
+		A8FB74C22606B3D60037426E /* MovieViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewTests.swift; sourceTree = "<group>"; };
 		B3751C13DCBE3D4A5BBFA76F /* Pods_thefaelMovie_thefaelMovieTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thefaelMovie_thefaelMovieTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB7E6B2347BCD3A00DF454E /* Pods-thefaelMovie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thefaelMovie.debug.xcconfig"; path = "Target Support Files/Pods-thefaelMovie/Pods-thefaelMovie.debug.xcconfig"; sourceTree = "<group>"; };
 		CF7925406370AEB3FC6FC1D0 /* Pods_thefaelMovie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_thefaelMovie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,7 +210,6 @@
 		A856A39225AE144800EA18FE = {
 			isa = PBXGroup;
 			children = (
-				A8BCEC862605A562006D6017 /* Podfile */,
 				A856A39D25AE144900EA18FE /* thefaelMovie */,
 				A831AE1B25E5AC38001EC3C2 /* thefaelMovieTests */,
 				A856A39C25AE144900EA18FE /* Products */,
@@ -291,6 +290,7 @@
 		A87C01012603E3FC00C12163 /* MoviesTests */ = {
 			isa = PBXGroup;
 			children = (
+				A8FB74C22606B3D60037426E /* MovieViewTests.swift */,
 				A87C01022603E43900C12163 /* FavoriteButtonTests.swift */,
 			);
 			path = MoviesTests;
@@ -400,7 +400,7 @@
 				A856A39725AE144900EA18FE /* Sources */,
 				A856A39825AE144900EA18FE /* Frameworks */,
 				A856A39925AE144900EA18FE /* Resources */,
-				3D9BD936F9251F7B540CF977 /* [CP] Embed Pods Frameworks */,
+				263DD47E9824836027EADB5A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -461,7 +461,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8BCEC872605A562006D6017 /* Podfile in Resources */,
 				A856A3AB25AE144E00EA18FE /* LaunchScreen.storyboard in Resources */,
 				A856A3A825AE144E00EA18FE /* Assets.xcassets in Resources */,
 			);
@@ -487,7 +486,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-thefaelMovie-thefaelMovieTests/Pods-thefaelMovie-thefaelMovieTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3D9BD936F9251F7B540CF977 /* [CP] Embed Pods Frameworks */ = {
+		263DD47E9824836027EADB5A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -559,6 +558,7 @@
 				A8BF9E3525F130EA00EFADC2 /* TestError.swift in Sources */,
 				A885580125FB14F400C45443 /* UserDefaultsAdapterMock.swift in Sources */,
 				A8A25C2D25E603E400CA9696 /* ImageCacheMock.swift in Sources */,
+				A8FB74C32606B3D60037426E /* MovieViewTests.swift in Sources */,
 				A831AE2825E5B63C001EC3C2 /* ServiceMock.swift in Sources */,
 				A8BF9E3125F12F2700EFADC2 /* PopularMoviesInterectorTests.swift in Sources */,
 				A8B5EFA025F9DB5F00DC943C /* FavMovieCacheTests.swift in Sources */,

@@ -1,6 +1,5 @@
 import UIKit
 import Cosmos
-import TinyConstraints
 
 class MovieView: UIView {
     private let movieImageView = UIImageView()
@@ -107,7 +106,7 @@ class MovieView: UIView {
     }
 
     func setupFavButton() {
-        favButton.setMovieForButton(movie: movie)
+        favButton.movie = movie
         favButton.addTarget(self, action: #selector (buttonTapped), for: .touchUpInside)
         favButton.tintColor = Color.gray
         favButton.translatesAutoresizingMaskIntoConstraints = false

@@ -1,43 +1,49 @@
 @testable import thefaelMovie
-import XCTest
+import FBSnapshotTestCase
 
-class FavoriteButtonTests: XCTestCase {
-    let movie = MovieEncoder.popularMovie
-    let validData = MovieEncoder.movieData
+class FavoriteButtonTests: FBSnapshotTestCase {
+    let cache = FavMovieCacheMock(cache: [String : Data]())
+    lazy var favoriteButton = FavoriteButton(cache: cache, frame: CGRect(x: 0, y: 0, width: 50, height: 50))
 
-    func test_buttonTapped_whenMovieIsFavorite_shouldCallRemoveMovie() {
-        let cache = [String: Data]()
-        let favMovieCacheMock = FavMovieCacheMock(cache: cache)
-        favMovieCacheMock.movieIsFavorite = true
-        let favoriteButton = FavoriteButton(cache: favMovieCacheMock)
-        favoriteButton.movie = movie
-
-        favoriteButton.buttonTapped()
-        XCTAssert(favMovieCacheMock.didCallRemoveMovie)
+    override func setUp() {
+        super.setUp()
+        self.recordMode = false
     }
 
-    func test_buttonTapped_whenMovieIsNotFavorite_shouldCallAddMovie_andSucceed() {
-        let cache = [String: Data]()
-        let favMovieCacheMock = FavMovieCacheMock(cache: cache)
-        favMovieCacheMock.movieIsFavorite = false
-        let favoriteButton = FavoriteButton(cache: favMovieCacheMock)
-        favoriteButton.movie = movie
-
+    func test_buttonTapped_whenMovieIsFavorite_buttonShouldLookLikeThis() {
+        favoriteButton.movie = MovieEncoder.popularMovie
+        cache.movieIsFavorite = true
+        
         favoriteButton.buttonTapped()
-        XCTAssert(favMovieCacheMock.didCallAddMovie)
+        
+        FBSnapshotVerifyView(favoriteButton)
     }
 
-    func test_buttonTapped_whenMovieIsNotFavorite_andNotValid_shouldCallAddMovie_andFail() {
-        let cache = [String: Data]()
-        let favMovieCacheMock = FavMovieCacheMock(cache: cache)
-        favMovieCacheMock.movieIsFavorite = false
-        favMovieCacheMock.movieIsValid = false
-        let favoriteButton = FavoriteButton(cache: favMovieCacheMock)
-        favoriteButton.movie = movie
+    func test_buttonTapped_whenMovieIsNotFavorite_buttonShouldLookLikeThis() {
+        favoriteButton.movie = MovieEncoder.popularMovie
+        cache.movieIsFavorite = false
 
-        XCTAssertThrowsError(favoriteButton.buttonTapped()) { error in
-            XCTAssertEqual(error as! TestError, TestError.error)
-        }
+        favoriteButton.buttonTapped()
+
+        FBSnapshotVerifyView(favoriteButton)
+    }
+
+    func test_setButtonImage_whenMovieIsFavorite_buttonShouldLookLikeThis() {
+        favoriteButton.movie = MovieEncoder.popularMovie
+        cache.movieIsFavorite = true
+
+        favoriteButton.setButtonImage()
+
+        FBSnapshotVerifyView(favoriteButton)
+    }
+
+    func test_setButtonImage_whenMovieIsNotFavorite_buttonShouldLookLikeThis() {
+        favoriteButton.movie = MovieEncoder.popularMovie
+        cache.movieIsFavorite = false
+
+        favoriteButton.setButtonImage()
+
+        FBSnapshotVerifyView(favoriteButton)
     }
 }
 

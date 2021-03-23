@@ -1,9 +1,13 @@
-//
-//  MovieViewTests.swift
-//  thefaelMovieTests
-//
-//  Created by Rafael Rodrigues on 20/03/21.
-//  Copyright © 2021 Rafael Rodrigues. All rights reserved.
-//
+@testable import thefaelMovie
+import FBSnapshotTestCase
 
-import Foundation
+class MovieViewTests: FBSnapshotTestCase {
+
+    override func setUp() {
+        super.setUp()
+    }
+
+    func test_movieView() {
+        
+    }
+}

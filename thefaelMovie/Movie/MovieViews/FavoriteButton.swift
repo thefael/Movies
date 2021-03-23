@@ -8,9 +8,9 @@ class FavoriteButton: UIButton {
         }
     }
 
-    init(cache: DataCacheType = FavMovieCache.shared) {
+    init(cache: DataCacheType = FavMovieCache.shared, frame: CGRect = .zero) {
         self.favCache = cache
-        super.init(frame: .zero)
+        super.init(frame: frame)
     }
 
     required init?(coder: NSCoder) {
@@ -43,9 +43,4 @@ class FavoriteButton: UIButton {
             setImage(heart, for: .normal)
         }
     }
-
-    func setMovieForButton(movie: PopularMovie) {
-        self.movie = movie
-    }
-    
 }
