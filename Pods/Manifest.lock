@@ -1,20 +1,24 @@
 PODS:
   - Cosmos (23.0.0)
-  - TinyConstraints (4.0.1)
+  - iOSSnapshotTestCase (5.0.2):
+    - iOSSnapshotTestCase/SwiftSupport (= 5.0.2)
+  - iOSSnapshotTestCase/Core (5.0.2)
+  - iOSSnapshotTestCase/SwiftSupport (5.0.2):
+    - iOSSnapshotTestCase/Core
 
 DEPENDENCIES:
   - Cosmos
-  - TinyConstraints
+  - iOSSnapshotTestCase
 
 SPEC REPOS:
   trunk:
     - Cosmos
-    - TinyConstraints
+    - iOSSnapshotTestCase
 
 SPEC CHECKSUMS:
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
-  TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
+  iOSSnapshotTestCase: 2d51aa06775e95cecb0a1fb9c5c159ccd1dd4596
 
-PODFILE CHECKSUM: 31ce40630f05eae0448f788338d7901484525dc4
+PODFILE CHECKSUM: 2dedf4d817081f073b829f9677d30c4bc91316f5
 
 COCOAPODS: 1.9.3

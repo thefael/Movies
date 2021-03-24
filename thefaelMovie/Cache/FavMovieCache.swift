@@ -1,51 +1,55 @@
 import UIKit
 
-class FavMovieCache {
-    static var shared = FavMovieCache()
-    private let defaults = UserDefaults.standard
-    private var favMoviesData = Dictionary<String, Data>()
+protocol DataCacheType {
+    var cache: [String: Data] { get set }
+    func getFavList() throws -> [PopularMovie]
+    func addMovie(_ movie: PopularMovie) throws
+    func removeMovie(_ movie: PopularMovie)
+    func isFavorite(_ movie: PopularMovie) -> Bool 
+}
 
-    private init() {
-        if let obj = defaults.object(forKey: "favoriteMoviesList") as? Dictionary<String, Data> {
-            favMoviesData = obj
-            for dict in favMoviesData {
-                print(dataToMovie(data: dict.value).title)
-            }
+class FavMovieCache: DataCacheType {
+    static var shared = FavMovieCache()
+    private var defaults: UserDefaultsAdaptable
+    var cache = [String: Data]()
+
+    init(defaults: UserDefaultsAdaptable = UserDefaultsAdapter()) {
+        self.defaults = defaults
+        if let obj = self.defaults.object(forKey: Constants.favMovieListKey) as? [String: Data] {
+            cache = obj
         }
     }
 
-    func getFavList() -> [PopularMovie] {
+    func getFavList() throws -> [PopularMovie] {
         var favMovieList = [PopularMovie]()
-        for dict in favMoviesData {
-            let movie = dataToMovie(data: dict.value)
-            favMovieList.append(movie)
+        for dict in cache {
+            do {
+                let movie: PopularMovie = try dataToObject(data: dict.value)
+                favMovieList.append(movie)
+            } catch {
+                throw error
+            }
         }
         return favMovieList
     }
 
-    func getMovie(with title: String?) -> PopularMovie? {
-        var favMovieList = [PopularMovie]()
-        for dict in favMoviesData {
-            let movie = dataToMovie(data: dict.value)
-            favMovieList.append(movie)
+    func addMovie(_ movie: PopularMovie) throws {
+        do {
+            let data = try objectToData(object: movie)
+            cache[movie.title] = data
+            defaults.set(cache, forKey: Constants.favMovieListKey)
+        } catch {
+            throw error
         }
-        let movie = favMovieList.first(where: { $0.title == title })
-        return movie
-    }
-
-    func addMovie(_ movie: PopularMovie) {
-        let data = movieToData(movie: movie)
-        favMoviesData[movie.title] = data
-        defaults.set(favMoviesData, forKey: "favoriteMoviesList")
     }
 
     func removeMovie(_ movie: PopularMovie) {
-        favMoviesData.removeValue(forKey: movie.title)
-        defaults.set(favMoviesData, forKey: "favoriteMoviesList")
+        cache.removeValue(forKey: movie.title)
+        defaults.set(cache, forKey: Constants.favMovieListKey)
     }
 
     func isFavorite(_ movie: PopularMovie) -> Bool {
-        if favMoviesData[movie.title] != nil {
+        if cache[movie.title] != nil {
             return true
         } else {
             return false
@@ -54,23 +58,23 @@ class FavMovieCache {
 }
 
 extension FavMovieCache {
-    func movieToData(movie: PopularMovie) -> Data {
+    func objectToData<T: Encodable>(object: T) throws -> Data {
         let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(movie)
+            let data = try encoder.encode(object)
             return data
         } catch {
-            fatalError("Unable to encode movie to data.")
+            throw CommonError.failToEncodeData
         }
     }
 
-    func dataToMovie(data: Data) -> PopularMovie {
+    func dataToObject<T: Decodable>(data: Data) throws -> T {
         let decoder = JSONDecoder()
         do {
-            let movie = try decoder.decode(PopularMovie.self, from: data)
-            return movie
+            let object = try decoder.decode(T.self, from: data)
+            return object
         } catch {
-            fatalError("Unable to decode data.")
+            throw CommonError.failToDecodeData
         }
     }
 }

@@ -1,14 +1,15 @@
 import UIKit
 
 class FavoriteButton: UIButton {
-    private let favCache = FavMovieCache.shared
+    private let favCache: DataCacheType
     var movie: PopularMovie? {
         didSet {
             self.setButtonImage()
         }
     }
 
-    override init(frame: CGRect) {
+    init(cache: DataCacheType = FavMovieCache.shared, frame: CGRect = .zero) {
+        self.favCache = cache
         super.init(frame: frame)
     }
 
@@ -26,7 +27,8 @@ class FavoriteButton: UIButton {
             favCache.removeMovie(movie)
             setImage(heart, for: .normal)
         } else {
-            favCache.addMovie(movie)
+            do { try favCache.addMovie(movie) }
+            catch { print(error) }
             setImage(heartFill, for: .normal)
         }
     }
@@ -41,9 +43,4 @@ class FavoriteButton: UIButton {
             setImage(heart, for: .normal)
         }
     }
-
-    func setMovieForButton(movie: PopularMovie) {
-        self.movie = movie
-    }
-    
 }

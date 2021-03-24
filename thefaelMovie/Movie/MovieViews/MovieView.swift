@@ -1,6 +1,5 @@
 import UIKit
 import Cosmos
-import TinyConstraints
 
 class MovieView: UIView {
     private let movieImageView = UIImageView()
@@ -8,13 +7,14 @@ class MovieView: UIView {
     private let cosmosView = CosmosView()
     private let numOfRatings = UILabel()
     private let favButton = FavoriteButton()
-    private let imageCache = ImageCache.shared
+    private let imageCache: ImageCacheType
     private let scrollView = UIScrollView(frame: .zero)
     private let containerView = UIView()
     private let movie: PopularMovie
 
-    init(frame: CGRect, movie: PopularMovie) {
+    init(frame: CGRect, movie: PopularMovie, cache: ImageCacheType = ImageCache.shared) {
         self.movie = movie
+        self.imageCache = cache
         super.init(frame: frame)
         backgroundColor = Color.darkBlue
     }
@@ -107,7 +107,7 @@ class MovieView: UIView {
     }
 
     func setupFavButton() {
-        favButton.setMovieForButton(movie: movie)
+        favButton.movie = movie
         favButton.addTarget(self, action: #selector (buttonTapped), for: .touchUpInside)
         favButton.tintColor = Color.gray
         favButton.translatesAutoresizingMaskIntoConstraints = false

@@ -20,7 +20,11 @@ class FavoriteMoviesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.async {
-            self.dataSource.items = self.favMovieCache.getFavList()
+            do {
+                self.dataSource.items = try self.favMovieCache.getFavList()
+            } catch {
+                print(error)
+            }
             self.favoriteMoviesView.collectionView.reloadData()
         }
     }
@@ -38,7 +42,18 @@ class FavoriteMoviesViewController: UIViewController {
     func configureCell() {
         dataSource.configureCell = { item, cell in
             cell.favoriteMovie = item
-            cell.loadImage = { self.interactor.loadImage(from: item, into: cell) }
+            cell.loadImage = {
+                self.interactor.loadImage(from: item) { result in
+                    switch result {
+                    case .success(let image):
+                        DispatchQueue.main.async {
+                            cell.movieImage.image = image
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
         }
     }
 }
