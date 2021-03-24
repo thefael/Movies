@@ -16,7 +16,7 @@ class FavMovieCacheMock: DataCacheType {
 
     func getFavList() throws -> [PopularMovie] {
         didCallGetFavList = true
-        return [MovieEncoder.popularMovie]
+        return [MovieGenerator.popularMovie]
     }
 
     func addMovie(_ movie: PopularMovie) throws {

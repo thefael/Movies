@@ -4,16 +4,16 @@ import XCTest
 class FavMovieCacheTests: XCTestCase {
     let userDefaultsAdapterMock = UserDefaultsAdapterMock()
     lazy var favMovieCache = FavMovieCache(defaults: userDefaultsAdapterMock)
-    let validMovie = MovieEncoder.popularMovie
-    let invalidMovie = MovieEncoder.invalidMovie
-    let validData = MovieEncoder.movieData
+    let validMovie = MovieGenerator.popularMovie
+    let invalidMovie = MovieGenerator.invalidMovie
+    let validData = MovieGenerator.movieData
     let invalidData = Data()
 
     func test_getFavList_whenDataToObjectSucceeds_shouldReturnArrayOfPopularMovie() {
-        guard let validData = MovieEncoder.movieData else { fatalError("Failed to encode popularMovie on MovieEncoder class") }
+        guard let validData = MovieGenerator.movieData else { fatalError("Failed to encode popularMovie on MovieEncoder class") }
         favMovieCache.cache = [String: Data]()
         favMovieCache.cache["key"] = validData
-        let correctFavList = [MovieEncoder.popularMovie]
+        let correctFavList = [MovieGenerator.popularMovie]
         let favList = try! favMovieCache.getFavList()
 
         XCTAssertEqual(favList, correctFavList)

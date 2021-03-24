@@ -180,7 +180,7 @@
 				A8BF9E3225F130C800EFADC2 /* Helpers */,
 				A8B5EF9E25F9DB3100DC943C /* CacheTests */,
 				A831AE2425E5AC60001EC3C2 /* FavoriteMovies */,
-				A87C01012603E3FC00C12163 /* MoviesTests */,
+				A87C01012603E3FC00C12163 /* MovieTests */,
 				A8BF9E3625F17F1200EFADC2 /* URLSessionService */,
 				A8BF9E2F25F12EFE00EFADC2 /* PopularMovies */,
 				A831AE1C25E5AC38001EC3C2 /* thefaelMovieTests.swift */,
@@ -287,13 +287,13 @@
 			path = Movie;
 			sourceTree = "<group>";
 		};
-		A87C01012603E3FC00C12163 /* MoviesTests */ = {
+		A87C01012603E3FC00C12163 /* MovieTests */ = {
 			isa = PBXGroup;
 			children = (
 				A8FB74C22606B3D60037426E /* MovieViewTests.swift */,
 				A87C01022603E43900C12163 /* FavoriteButtonTests.swift */,
 			);
-			path = MoviesTests;
+			path = MovieTests;
 			sourceTree = "<group>";
 		};
 		A8B5EF9E25F9DB3100DC943C /* CacheTests */ = {
